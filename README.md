@@ -31,7 +31,7 @@ NLPT broadly supports minimal functionality for text in following language sets:
     Stability:  3   - Stable
     Volatility: 3   - Stable
     Tests:      3   - Stable
-Examples:   [Tokenizer](https://github.com/jbowles/rivet_examples/tree/master/tokenizer)
+Examples:   []()
 
 ### TODO
 * Support for Arabic and Mandarin are coming, though probably not until late 2014.
@@ -67,9 +67,31 @@ Examples:  []()
 Examples:  []()
 
 # Resources
-## General NLP APIs
+
+## Tokenizer
+* [Xerox Tokenizer Service](http://open.xerox.com/Services/fst-nlp-tools/Consume/175)
+
+## Stemming
+* [Xerox Morphological Analysis](http://open.xerox.com/Services/fst-nlp-tools/Pages/morphology) 
+
+## Part of Speech Tags
+* [Xerox POS Tagger Service](http://open.xerox.com/Services/fst-nlp-tools/Consume/178)
+* [Xerox POS Tagset Standard](http://open.xerox.com/Services/fst-nlp-tools/Pages/English%20Part-of-Speech%20Tagset)
+
+## Tf-Idf
+See the IDF entry in the [Information Retrieval](http://nlp.stanford.edu/IR-book/html/htmledition/inverse-document-frequency-1.html) book provided by Stanford and authors for detail.
+
+## Unicode
+* [Lorem Ipsum generator for multiple languages](http://generator.lorem-ipsum.info/)
+  * Includes Arabic, Mandarin, Hebrew, Cyrillic, and others
+* [Library of Congress Standards](http://www.loc.gov/standards/)
+* [ISO 693-2 Standard for Natural Language Codes and Names](http://www.loc.gov/standards/iso639-2/php/code_list.php)
+* [ISO 639-5 Standard for Natural Language Families and Names](http://www.loc.gov/standards/iso639-5/id.php)
+
+## NLP APIs for result comaprison testing
 One reason for knowing about NLP services is they can be used for testing and comparing results. When more sub-packages become available tests will be written against these APIs to compare results.
-#### XEROX
+
+#### Xerox
 * [Xerox Linguistic Tools](http://open.xerox.com/Services/fst-nlp-tools/Pages/API%20Docs)
   * "Finite State Technology Tools for Natural Language Processing"
 
@@ -102,22 +124,3 @@ One reason for knowing about NLP services is they can be used for testing and co
   ```
 
 
-## Tokenizer
-* [Xerox Tokenizer Service](http://open.xerox.com/Services/fst-nlp-tools/Consume/175)
-
-## Stemming
-* [Xerox Morphological Analysis](http://open.xerox.com/Services/fst-nlp-tools/Pages/morphology) 
-
-## Part of Speech Tags
-* [Xerox POS Tagger Service](http://open.xerox.com/Services/fst-nlp-tools/Consume/178)
-* [Xerox POS Tagset Standard](http://open.xerox.com/Services/fst-nlp-tools/Pages/English%20Part-of-Speech%20Tagset)
-
-## Tf-Idf
-See the IDF entry in the [Information Retrieval](http://nlp.stanford.edu/IR-book/html/htmledition/inverse-document-frequency-1.html) book provided by Stanford and authors for detail.
-
-## Unicode
-* [Lorem Ipsum generator for multiple languages](http://generator.lorem-ipsum.info/)
-  * Includes Arabic, Mandarin, Hebrew, Cyrillic, and others
-* [Library of Congress Standards](http://www.loc.gov/standards/)
-* [ISO 693-2 Standard for Natural Language Codes and Names](http://www.loc.gov/standards/iso639-2/php/code_list.php)
-* [ISO 639-5 Standard for Natural Language Families and Names](http://www.loc.gov/standards/iso639-5/id.php)
