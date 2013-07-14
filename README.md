@@ -1,7 +1,6 @@
 # Natural Language Processing Toolkit
 Written in Go.
-
-![Alt text](https://github.com/jbowles/nlpt/raw/master/nlpt.gif "Natural Language Processing Toolkit in Go")
+This is the tested, stable, and production ready brnach of a research project to write natural language processing tools in Go. NLPT is built up from multiple sub-packages (each separately accessible).
 
 Get it:
 * `go get github.com/jbowles/nlpt` 
@@ -11,8 +10,14 @@ Get a subpackage (for example, the tokenizer package `tkn`):
 * `go get github.com/jbowles/nlpt/tkn` 
   * (or update: `go get -u github.com/jbowles/nlpt/tkn`)
 
-This is the stable stage of a research project to write natural language processing tools in Go. Criteria for each sub-package:
+![Alt text](https://github.com/jbowles/nlpt/raw/master/nlpt.gif "Natural Language Processing Toolkit in Go")
+## Branches
+* `stable` comes out of `experiment` and for writing tests and ensuring stability
+* `experiment` is for low-level development and general messiness
 
+Workflow == `experiment` -> `stable` -> `master`
+
+## Criteria each sub-package:
 * `Stability` (Experimental, Usable, Stable) to determine whether the API is production ready. 
 * `Volatility` (Radical, Mild, Stable) to determine whether the API is likely to change.
 * `Test` (Nil, Some, Stable) to signal range of coverage for tests over the API.
