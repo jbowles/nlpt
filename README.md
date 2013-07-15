@@ -10,7 +10,7 @@ Get a subpackage (for example, the tokenizer package `tkn`):
 * `go get github.com/jbowles/nlpt/tkn` 
   * (or update: `go get -u github.com/jbowles/nlpt/tkn`)
 
-![Alt text](https://github.com/jbowles/nlpt/raw/master/nlpt2.png "Natural Language Processing Toolkit in Go")
+![Alt text](https://github.com/jbowles/nlpt/raw/master/nlpt2.jpg "Natural Language Processing Toolkit in Go")
 ## Branches
 * `stable` comes out of `experiment` and for writing tests and ensuring stability
 * `experiment` is for low-level development and general messiness
