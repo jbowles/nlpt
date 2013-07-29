@@ -13,9 +13,9 @@ Get a subpackage (for example, the tokenizer package `tkn`):
 ![Alt text](https://github.com/jbowles/nlpt/raw/master/nlpt2.jpg "Natural Language Processing Toolkit in Go")
 ## Branches
 * `stable` comes out of `experiment`; it is for writing tests and ensuring stability
-* `experiment` is for low-level development and general messiness
+* `exp` is for low-level development and general messiness
 
-Workflow == `experiment` -> `stable` -> `master`
+Workflow == `exp` -> `stable` -> `master`
 
 ## Criteria each sub-package:
 * `Stability` (Experimental, Usable, Stable) to determine whether the API is production ready. 
