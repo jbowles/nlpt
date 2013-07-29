@@ -4,13 +4,13 @@
 
 
 // Very simple natural language tokenizer provides default word tokenizer and custom EachCharacter tokenizer for different sets of unicode alphabets. Pre-defined alphabets for Western Indo-European unicode as well as Slavic and Greek. API allows easy extension of unicode sets for custom alphabets. 
-package nlpttoken
+package nlptoken
 
 import (
 	"strings"
 )
 
-//runeSep joins okens by a comma for easier reading
+//runeSep joins tokens by a comma for easier reading
 func runeSep(tokens []string, separator string) (readable_tokens []string) {
 	for _, t := range tokens {
 		t = t + separator

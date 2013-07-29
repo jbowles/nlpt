@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 // TokenBase interface defines the base token alphabet for functions of the rvt_tokenizer
-package nlpt_tok
+package nlptoken
 
 // Interface to Compose() with different sets of rune Structs for tokenizing text
 // It's been locked down to 2 rune slices per struct; this may change.
