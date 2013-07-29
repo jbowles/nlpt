@@ -6,19 +6,23 @@ Get it:
 * `go get github.com/jbowles/nlpt` 
   * (or update: `go get -u github.com/jbowles/nlpt`)
 
-Get a subpackage (for example, the tokenizer package `tkn`):
-* `go get github.com/jbowles/nlpt/tkn` 
-  * (or update: `go get -u github.com/jbowles/nlpt/tkn`)
+Functionality is separated into sub packages, which are usable outside the scope of the main NLPT project. Naming of each subpackage will be consistent as per the `first 3 letter prefix` + `subpackage name`. For example: tokenizer = `nlptokenizer`, stemmer = `nlpstemmer`, tagger = `nlptagger`.
+Get a subpackage:
+* `go get github.com/jbowles/nlpt/nlptokenizer` 
+  * (or update: `go get -u github.com/jbowles/nlpt/nlptokenizer`)
 
 ![Alt text](https://github.com/jbowles/nlpt/raw/master/nlpt2.jpg "Natural Language Processing Toolkit in Go")
-## Branches
-* `stable` comes out of `experiment`; it is for writing tests and ensuring stability
-* `exp` is for low-level development and general messiness
 
-Workflow == `exp` -> `stable` -> `master`
+## Branches
+* `exp`
+  * Low-level development and general messiness
+* `stable`
+  * Testing, performance, run standard data sets, P&R (precision and recall) where appropriate
+
+Development workflow == `exp` -> `stable` -> `master`
 
 ## Criteria each sub-package:
-* `Stability` (Experimental, Usable, Stable) to determine whether the API is production ready. 
+* `Stability` (Experimental, Stable, Production) to determine whether the API is production ready. 
 * `Volatility` (Radical, Mild, Stable) to determine whether the API is likely to change.
 * `Test` (Nil, Some, Stable) to signal range of coverage for tests over the API.
 * `Examples` link to external repo with more documentation and examples.
@@ -40,10 +44,10 @@ Examples:   []()
 
 ### TODO
 * Support for Arabic and Mandarin are coming, though probably not until late 2014.
-* Eventually move to probabilistic model.
+* Eventually move to a more probabilistic model.
 
 ### Description
-Tokenizer **does not use regular expressions for its unicode character pattern matching**. Instead, it leverages the Go Rune Type (`int32` aliases for Unicode characters) and the String Types defined within Go Struct Types. Basically, you can **build custom unicode alphabets** that are used as an allowable set of characters for the tokenizing. Rivet Tokenizer seeks to provide an easy to use, flexible work flow that can adapt to novel requirements and be extended easily. I am building it with three main concerns:
+Tokenizer it leverages the Go Rune Type (`int32` aliases for Unicode). Basically, you can **build custom unicode alphabets** that are used for pattern matching (instead of regular expressions). General goals:
 
 1. Broader spectrum of Unicode characaters used across ever expanding and changing media
 1. Special or nonstandard characters used in software application logs
