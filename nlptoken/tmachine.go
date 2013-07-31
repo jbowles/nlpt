@@ -1,12 +1,14 @@
 package nlptoken
 
+// Tmachine is a Tokenizer State Machine based on Denis Papathanasiou's 
+// article http://denis.papathanasiou.org/2013/02/10/state-machines-in-go-golang/
+
 type TokenHandler func(interface{}) (string, interface{})
 
 type Tmachine struct {
 	TokenHandlers	map[string]TokenHandler
 	StartState	string
 	EndStates	map[string]bool
-	//Locked		bool
 }
 
 func (machine *Tmachine) AddState(handlerName string, handlerFn TokenHandler) {
@@ -16,16 +18,6 @@ func (machine *Tmachine) AddState(handlerName string, handlerFn TokenHandler) {
 func (machine *Tmachine) AddEndState(endState string) {
 	machine.EndStates[endState] = true
 }
-
-/*
-func (machine *Tmachine) Lock() {
-	machine.Locked = true
-}
-
-func (machine *Tmachine) Unlock() {
-	machine.Locked = false
-}
-*/
 
 func (machine *Tmachine) Execute(cargo interface{}) {
 	if handler, present := machine.TokenHandlers[machine.StartState]; present {

@@ -10,6 +10,10 @@ import (
 	"strings"
 )
 
+//////////////////////////////////////////////////
+//////////  NAIVE (Whitespace) MODEL /////////////
+//////////////////////////////////////////////////
+
 //runeSep joins tokens by a comma for easier reading
 func runeSep(tokens []string, separator string) (readable_tokens []string) {
 	for _, t := range tokens {
@@ -17,25 +21,6 @@ func runeSep(tokens []string, separator string) (readable_tokens []string) {
 		readable_tokens = append(readable_tokens, t)
 	}
 	return
-}
-
-// define a set of vars for the default tokenizer
-var latin = Latin{}
-var punctuation = PunctNum{}
-var space_char = SpaceChar{}
-var english = Alphabet(&latin, &punctuation, &space_char)
-
-
-//////////////////////////////////////////////////
-//////////  NAIVE (Whitespace) MODEL /////////////
-//////////////////////////////////////////////////
-
-// Whitespace tokenizer returns words spearated by comma.
-// Uses SimpleWord, which is a splitter on whitespace only.
-// Tokenizing on whitespace is naive and will produce poor results.
-// Though it can be useful in some cases, this function is not recommeded for robust processing needs.
-func WhiteSpace(text string) []string {
-	return SimpleWord(english, text, ", ")
 }
 
 // EachCharacter converts string into an array of character tokens

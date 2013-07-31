@@ -12,7 +12,6 @@ type TokenBase interface {
 }
 
 // Parametric function to group all rune Structs into one rune slice
-// Note pointers are used for build methods
 func Alphabet(tks ...TokenBase) []rune {
 	var result []rune
 	//range over types, collect multiple return values, append to new slice, append final slice
