@@ -1,5 +1,8 @@
 # Natural Language Processing Toolkit
 Written in Go.
+
+If you wanna see where all the work is happening, go to [exp branch](https://github.com/jbowles/nlpt/tree/exp).
+
 This is the tested, stable, and production ready brnach of a research project to write natural language processing tools in Go. NLPT is built up from multiple sub-packages (each separately accessible).
 
 Get it:
