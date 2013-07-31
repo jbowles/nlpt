@@ -1,12 +1,10 @@
 // Copyright ©2013 The rivet Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
-
-// TokenBase interface defines the base token alphabet for functions of the rvt_tokenizer
 package nlptoken
 
-// Interface to Compose() with different sets of rune Structs for tokenizing text
-// It's been locked down to 2 rune slices per struct; this may change.
+// TokenBase is the Interface to build() with different sets of rune Structs for tokenizing text
+// It's been locked down to 2 rune slices per struct.
 type TokenBase interface {
 	build() ([]rune, []rune)
 }

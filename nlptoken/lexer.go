@@ -1,3 +1,6 @@
+// Copyright ©2013 The rivet Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 package nlptoken
 
 // Following Rob Pike's discussion of building a lexer that
