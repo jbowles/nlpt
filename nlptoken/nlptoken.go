@@ -5,11 +5,11 @@
 //nlptoken package implements various ways to tokenize natural language text.
 package nlptoken
 
-// define a set of vars for the default tokenization
-var latin = Latin{}
-var punctuation = PunctNum{}
-var space_char = SpaceChar{}
-var english = Alphabet(&latin, &punctuation, &space_char)
+// Accessible Alphabets
+var LatinSet = Alphabet(&Latin{})
+var PunctNumSet = Alphabet(&PunctNum{})
+var SpaceCharSet = Alphabet(&SpaceChar{})
+var EnglishSet = Alphabet(&Latin{}, &PunctNum{}, &SpaceChar{})
 
 // Whitespace tokenizer returns words spearated by comma.
 // Uses SimpleWord, which is a splitter on whitespace only.
@@ -17,5 +17,5 @@ var english = Alphabet(&latin, &punctuation, &space_char)
 // Though it can be useful in some cases, this function is not recommeded 
 // for robust processing needs. See wstoken.go
 func WhiteSpace(text string) []string {
-	return SimpleWord(english, text, ", ")
+	return SimpleWord(EnglishSet, text, ", ")
 }
