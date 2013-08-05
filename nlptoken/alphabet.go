@@ -41,7 +41,8 @@ func UnicodeAlphabet(sets ...Encodings) []rune {
 	return uniset
 }
 
-// TokenBase is the Interface to build() with different sets of rune Structs for tokenizing text
+// TokenBase is the Interface to build() with different sets of rune 
+// structs for tokenizing text.
 // It's been locked down to 2 rune slices per struct.
 type TokenBase interface {
 	build() ([]rune, []rune)
@@ -105,16 +106,10 @@ type Greek struct {
 	Upper, Lower []rune
 }
 
-// The Cyrillic letter Struct for the tokenizer
+// The CyrillicSimple letter Struct for the tokenizer
 // Languge Ex: Russian, Belarusian, Ukrainian, Rusyn, Serbian, Bulgarin, Macedonian, Chechen, and other Slavic langauges.
-type Cyrillic struct {
+type CyrillicSimple struct {
 	Upper, Lower []rune
-}
-
-// Small set of Mandarin characters and pinyin for the tokenizer
-// Languge Ex: Chinese Mandarin basic ideograms and pinyin
-type Mandarin struct {
-	Ideogram, Pinyin []rune
 }
 
 // build() methods for TokenBase interface using pointers.
@@ -154,7 +149,7 @@ func (g *Greek) build() ([]rune, []rune) {
 	g.Upper = []rune("ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥϒΦΧΨΩ")
 	return g.Lower, g.Upper
 }
-func (c *Cyrillic) build() ([]rune, []rune) {
+func (c *CyrillicSimple) build() ([]rune, []rune) {
 	c.Lower = []rune("аӑӓәӛӕбвгґѓғӷҕдђеѐёӗҽҿєжӂҗӝзҙӟӡѕиѝӥӣіїӀйҋјкқҟҡӄҝлӆљмӎнӊңӈҥњоӧөӫҩпҧрҏсҫтҭћќуўӳӱӯүұфхҳһцҵчӵҷӌҹџшщъыӹьҍэӭюя")
 	c.Upper = []rune("АӐӒӘӚӔБВГҐЃҒӶҔДЂЕЀЁӖҼҾЄЖӁҖӜЗҘӞӠЅИЍӤӢІЇӀЙҊЈКҚҞҠӃҜЛӅЉМӍНӉҢӇҤЊОӦӨӪҨПҦРҎСҪТҬЋЌУЎӲӰӮҮҰФХҲҺЦҴЧӴҶӋҸЏШЩЪЫӸЬҌЭӬЮЯ")
 	return c.Lower, c.Upper
