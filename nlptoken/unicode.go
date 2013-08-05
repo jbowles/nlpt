@@ -23,4 +23,3 @@ var (
 	CjkUnifiedIdeographs				= CodePoint{order: []rune{20480, 40959}}  // Chinese, Japanese, Korean
 	YiSyllables							= CodePoint{order: []rune{0, 0}}  //
 )
-
