@@ -6,10 +6,10 @@
 package nlptoken
 
 // Accessible Alphabets
-var LatinSet = Alphabet(&Latin{})
-var PunctNumSet = Alphabet(&PunctNum{})
-var SpaceCharSet = Alphabet(&SpaceChar{})
-var EnglishSet = Alphabet(&Latin{}, &PunctNum{}, &SpaceChar{})
+var LatinSet = SimpleAlphabet(&Latin{})
+var PunctNumSet = SimpleAlphabet(&PunctNum{})
+var SpaceCharSet = SimpleAlphabet(&SpaceChar{})
+var EnglishSet = SimpleAlphabet(&Latin{}, &PunctNum{}, &SpaceChar{})
 
 // Whitespace tokenizer returns words spearated by comma.
 // Uses SimpleWord, which is a splitter on whitespace only.
