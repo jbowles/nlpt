@@ -56,6 +56,11 @@ Tokenizer it leverages the Go Rune Type (`int32` aliases for Unicode). Basically
 1. Special or nonstandard characters used in software application logs
 1. The rise of new languages on the web, and the velocity of disappearing endangered langauges
 
+### Sources
+* Unicode code points table for Go Runes
+  * [UTF8 Character Table (in decimal)](http://www.utf8-chartable.de/unicode-utf8-table.pl?utf8=dec)
+
+
 ## TF-IDF: Term Frequency-Inverse Document Frequency
 The Tf-Idf stuff is not done, I've just been playing with different ways of doing it. There is not a full model finished yet and so the first implementation is not complete.
 
