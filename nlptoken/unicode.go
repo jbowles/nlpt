@@ -3,41 +3,24 @@
 // license that can be found in the LICENSE file.
 package nlptoken
 
-// Encodings is the interface for unicode.go,
-// it defines a scope function for ordered unicode
-// code points.
-// See codepoints.go of list.
-type Encodings interface {
-	scope() (rune, rune)
-}
+// Define the basic CodePoint orders for a crap ton of Unicode!!
+// See http://www.utf8-chartable.de/ for a table of code points.
+var (
+	BasicLatin							= CodePoint{order: []rune{0, 1024}}		  //
+	Cyrllic								= CodePoint{order: []rune{1024, 2047}}	  //
+	Samaritan							= CodePoint{order: []rune{2048, 3071}}	  //
+	Telugu								= CodePoint{order: []rune{3072, 4095}}	  //
+	Myanmar								= CodePoint{order: []rune{4096, 5119}}	  //
+	UnifiedCanadianAboriginalSyllabics	= CodePoint{order: []rune{5120, 6143}}	  //
+	Mongolian							= CodePoint{order: []rune{6144, 7167}}	  //
+	Lepcha								= CodePoint{order: []rune{7168, 8191}}	  //
+	GeneralPunctuation					= CodePoint{order: []rune{8192, 9125}}	  //
+	ControlPictures						= CodePoint{order: []rune{9216, 10239}}	  //
+	BraillePatterns						= CodePoint{order: []rune{10240, 11263}}  //
+	Glagolitic							= CodePoint{order: []rune{11264, 12287}}  //
+	CjkSymbolsPunctuation				= CodePoint{order: []rune{12288, 13311}}  // Chinese, Japanese, Korean
+	CjkUnifiedIdeographsExtA			= CodePoint{order: []rune{13312, 20479}}  // Chinese, Japanese, Korean
+	CjkUnifiedIdeographs				= CodePoint{order: []rune{20480, 40959}}  // Chinese, Japanese, Korean
+	YiSyllables							= CodePoint{order: []rune{0, 0}}  //
+)
 
-// CodePoint is the struct for unicode.go,
-// it contains the order of the range code points
-type CodePoint struct {
-	order []rune
-}
-
-// scope implements the Encodings interface through
-// CodePoint structs defined over ordered range of
-// Unicode Code Points.
-func (cp CodePoint) scope() (startidx, stopidx rune) {
-	return cp.order[0], cp.order[1]
-}
-
-// UnicodeSet builds a slice of runes based on unicode ranges
-// for any Encodings struct that has the Unicode Code Points range
-// defined.
-// fmt.Println("BasicLatin:", UnicodeSet(BasicLatin,Cyrllic))
-func UnicodeSet(sets ...Encodings) []rune {
-	var uniset []rune
-	for _, s := range sets {
-		startidx, stopidx := s.scope()
-		tmp := make([]rune, stopidx, stopidx)
-		for i := startidx; i < stopidx; i++ {
-			//fmt.Println(tmp[i])
-			tmp[i] = rune(i)
-		}
-		uniset = append(uniset, tmp[startidx:]...)
-	}
-	return uniset
-}

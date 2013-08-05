@@ -1,7 +1,45 @@
-// Copyright ©2013 The rivet Authors. All rights reserved.
+// Copyright ©2013 The nlpt Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 package nlptoken
+
+// Encodings is the preferred way to build the alphabet.
+// It defines a scope function for ordered unicode code points.
+// See codepoints.go of list.
+type Encodings interface {
+	scope() (rune, rune)
+}
+
+// CodePoint is the struct for unicode.go,
+// it contains the order of the range code points
+type CodePoint struct {
+	order []rune
+}
+
+// scope implements the Encodings interface through
+// CodePoint structs defined over ordered range of
+// Unicode Code Points.
+func (cp CodePoint) scope() (startidx, stopidx rune) {
+	return cp.order[0], cp.order[1]
+}
+
+// UnicodeSet builds a slice of runes based on unicode ranges
+// for any Encodings struct that has the Unicode Code Points range
+// defined.
+// fmt.Println("BasicLatin:", UnicodeAlphabet(BasicLatin,Cyrllic))
+func UnicodeAlphabet(sets ...Encodings) []rune {
+	var uniset []rune
+	for _, s := range sets {
+		startidx, stopidx := s.scope()
+		tmp := make([]rune, stopidx, stopidx)
+		for i := startidx; i < stopidx; i++ {
+			//fmt.Println(tmp[i])
+			tmp[i] = rune(i)
+		}
+		uniset = append(uniset, tmp[startidx:]...)
+	}
+	return uniset
+}
 
 // TokenBase is the Interface to build() with different sets of rune Structs for tokenizing text
 // It's been locked down to 2 rune slices per struct.
@@ -10,7 +48,7 @@ type TokenBase interface {
 }
 
 // Parametric function to group all rune Structs into one rune slice
-func Alphabet(tks ...TokenBase) []rune {
+func SimpleAlphabet(tks ...TokenBase) []rune {
 	var result []rune
 	//range over types, collect multiple return values, append to new slice, append final slice
 	for _, tok := range tks {
