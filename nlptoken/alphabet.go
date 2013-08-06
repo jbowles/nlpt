@@ -12,6 +12,7 @@ type Encodings interface {
 
 // CodePoint is the struct for unicode.go,
 // it contains the order of the range code points
+// and implement the Encodings interface.
 type CodePoint struct {
 	order []rune
 }

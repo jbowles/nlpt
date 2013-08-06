@@ -6,7 +6,7 @@ package nlptoken
 // Define the basic CodePoint orders for a crap ton of Unicode!!
 // See http://www.utf8-chartable.de/ for a table of code points.
 var (
-	BasicLatin							= CodePoint{order: []rune{0, 1024}}		  //
+	BasicLatin							= CodePoint{order: []rune{0, 1023}}		  //
 	Cyrllic								= CodePoint{order: []rune{1024, 2047}}	  //
 	Samaritan							= CodePoint{order: []rune{2048, 3071}}	  //
 	Telugu								= CodePoint{order: []rune{3072, 4095}}	  //
