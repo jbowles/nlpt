@@ -1,6 +1,12 @@
-// Copyright ©2013 The nlpt Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+/*
+* Copyright ©2013 The nlpt Authors. All rights reserved.
+* Use of this source code is governed by a BSD-style
+* license that can be found in the LICENSE file.
+
+* An Alphabet is a range over the Unicode set. Since this 
+* package uses runes the set is limited to characters of 4 bytes
+* or less (the limit of the Rune type).
+*/
 package nlptoken
 
 // Encodings is the preferred way to build the alphabet.

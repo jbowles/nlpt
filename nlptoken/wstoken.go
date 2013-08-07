@@ -1,9 +1,15 @@
-// Copyright ©2013 The NLPT Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+/*
+* Copyright ©2013 The nlpt Authors. All rights reserved.
+* Use of this source code is governed by a BSD-style
+* license that can be found in the LICENSE file.
 
-
-// Very simple natural language tokenizer provides default word tokenizer and custom EachCharacter tokenizer for different sets of unicode alphabets. Pre-defined alphabets for Western Indo-European unicode as well as Slavic and Greek. API allows easy extension of unicode sets for custom alphabets. 
+* wstoken is a white space tokenizer. IT IS NOT THE PREFERRED API.
+* It uses the deprecated alphabet.go set
+* and is for use with simple needs.
+* It also has an EachCharacter tokenizer for different sets of unicode alphabets. 
+* and supports alphabets for Western Indo-European unicode as well as Slavic 
+* and Greek. API allows easy extension of unicode sets for custom alphabets. 
+*/
 package nlptoken
 
 import (
