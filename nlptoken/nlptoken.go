@@ -14,6 +14,7 @@ var PunctNumSet = SimpleAlphabet(&PunctNum{})
 var SpaceCharSet = SimpleAlphabet(&SpaceChar{})
 var EnglishSet = SimpleAlphabet(&Latin{}, &PunctNum{}, &SpaceChar{})
 
+
 // Whitespace tokenizer returns words spearated by comma.
 // Uses SimpleWord, which is a splitter on whitespace only.
 // Tokenizing on whitespace is naive and will produce poor results.

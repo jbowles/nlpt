@@ -9,6 +9,7 @@
 */
 package nlptoken
 
+
 // Encodings is the preferred way to build the alphabet.
 // It defines a scope function for ordered unicode code points.
 // See codepoints.go of list.

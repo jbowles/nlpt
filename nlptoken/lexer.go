@@ -6,9 +6,10 @@
 
 package nlptoken
 
+
 /*
 // Following Rob Pike's discussion of building a lexer that
-// "Executes an action, returns the next state—as a state function."
+// "Executes an action, returns the next state—as a state function."function
 // http://cuddle.googlecode.com/hg/talk/lex.html#landing-slide
 // something like:
 
