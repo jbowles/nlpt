@@ -8,7 +8,7 @@ package nlptoken
 
 // Define the basic CodePoint orders for a crap ton of Unicode!!
 // See http://www.utf8-chartable.de/ for a table of code points.
-const (
+var (
 	BasicLatin                         = CodePoint{order: []rune{0, 1023}}      //
 	Cyrllic                            = CodePoint{order: []rune{1024, 2047}}   //
 	Samaritan                          = CodePoint{order: []rune{2048, 3071}}   //
@@ -24,5 +24,4 @@ const (
 	CjkSymbolsPunctuation              = CodePoint{order: []rune{12288, 13311}} // Chinese, Japanese, Korean
 	CjkUnifiedIdeographsExtA           = CodePoint{order: []rune{13312, 20479}} // Chinese, Japanese, Korean
 	CjkUnifiedIdeographs               = CodePoint{order: []rune{20480, 40959}} // Chinese, Japanese, Korean
-	YiSyllables                        = CodePoint{order: []rune{0, 0}}         //
 )

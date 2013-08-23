@@ -3,12 +3,11 @@
 * Use of this source code is governed by a BSD-style
 * license that can be found in the LICENSE file.
 
-* An Alphabet is a range over the Unicode set. Since this 
+* An Alphabet is a range over the Unicode set. Since this
 * package uses runes the set is limited to characters of 4 bytes
 * or less (the limit of the Rune type).
-*/
+ */
 package nlptoken
-
 
 // Encodings is the preferred way to build the alphabet.
 // It defines a scope function for ordered unicode code points.
@@ -17,11 +16,17 @@ type Encodings interface {
 	scope() (rune, rune)
 }
 
+type TokenRange struct {
+	cp     []CodePoint
+	uniset []rune
+}
+
 // CodePoint is the struct for unicode.go,
 // it contains the order of the range code points
 // and implement the Encodings interface.
 type CodePoint struct {
 	order []rune
+	utyp  unicodeType
 }
 
 // scope implements the Encodings interface through
@@ -35,8 +40,8 @@ func (cp CodePoint) scope() (startidx, stopidx rune) {
 // for any Encodings struct that has the Unicode Code Points range
 // defined.
 // fmt.Println("BasicLatin:", UnicodeAlphabet(BasicLatin,Cyrllic))
-func UnicodeAlphabet(sets ...Encodings) []rune {
-	var uniset []rune
+func UnicodeSet(sets ...Encodings) TokenRange {
+	var uset []rune
 	for _, s := range sets {
 		startidx, stopidx := s.scope()
 		tmp := make([]rune, stopidx, stopidx)
@@ -44,12 +49,16 @@ func UnicodeAlphabet(sets ...Encodings) []rune {
 			//fmt.Println(tmp[i])
 			tmp[i] = rune(i)
 		}
-		uniset = append(uniset, tmp[startidx:]...)
+		//fmt.Println(us[start:])
+		//fmt.Println(len(tmp))
+		uset = append(uset, tmp[startidx:]...)
 	}
-	return uniset
+	//fmt.Println(len(uniset))
+	TokenRange.uniset = uset
+	return
 }
 
-// TokenBase is the Interface to build() with different sets of rune 
+// TokenBase is the Interface to build() with different sets of rune
 // structs for tokenizing text.
 // It's been locked down to 2 rune slices per struct.
 type TokenBase interface {

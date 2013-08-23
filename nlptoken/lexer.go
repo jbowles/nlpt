@@ -6,6 +6,38 @@
 
 package nlptoken
 
+// create a new type struct that has CodePoint in it and utype
+
+type TokenRange struct {
+	cp     []CodePoint
+	uniset []rune
+}
+
+type CodePoint struct {
+	order []rune
+	utyp  unicodeType
+}
+
+type unicodeType int
+
+const (
+	itemBasicLatin                         unicodeType = iota
+	itemCyrillic                                       //itemType = iota
+	itemSamaritan                                      //itemType = iota
+	itemTelugu                                         //itemType = iota
+	itemMyanmar                                        //itemType = iota
+	itemUnifiedCanadianAboriginalSyllabics             //itemType = iota
+	itemMongolian                                      //itemType = iota
+	itemLepcha                                         //itemType = iota
+	itemGeneralPunctuation                             //itemType = iota
+	itemControlPictures                                //itemType = iota
+	itemBraillePatterns                                //itemType = iota
+	itemGlagolitic                                     //itemType = iota
+	itemCjkSymbolsPunctuation                          //itemType = iota
+	itemCjkUnifiedIdeographsExtA                       //itemType = iota
+	itemCjkUnifiedIdeographs                           //itemType = iota
+)
+
 type item struct {
 	typ itemType // Type, such as itemNumber
 	val string   // Value, such as "23.2"
