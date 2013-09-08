@@ -12,6 +12,10 @@
  */
 package nlptoken
 
+//////////////////////////////////////////////////
+/////////  LEXER (go-style lexer) MODEL //////////
+//////////////////////////////////////////////////
+
 type TokenRange struct {
 	cp     []CodePoint `codePoint=order:utype:readtype`
 	uniset []rune      `unicodeSet`

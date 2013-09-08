@@ -2,7 +2,7 @@
 * Copyright ©2013 The nlpt Authors. All rights reserved.
 * Use of this source code is governed by a BSD-style
 * license that can be found in the LICENSE file.
-*/
+ */
 
 package nlptoken
 
@@ -28,3 +28,7 @@ Implementations I have borrowed from:
 // [Ruby Punkt Segmenter](https://github.com/lfcipriani/punkt-segmenter)
 // [Ruby Punkt in TREAT](https://github.com/louismullie/treat/blob/master/lib/treat/workers/processors/tokenizers/punkt.rb)
 */
+
+//////////////////////////////////////////////////
+//////  PUNKT (sentence boundary) MODEL //////////
+//////////////////////////////////////////////////
