@@ -6,56 +6,87 @@
 * An Alphabet is a range over the Unicode set. Since this
 * package uses runes the set is limited to characters of 4 bytes
 * or less (the limit of the Rune type).
+*
+* SimpleAlphabet and TokenBase:	    are deprecated but kept around for some historical reasons
+* UnicodeAlphabet and TokenRange:	are the preferred way to build an alphabet.
  */
 package nlptoken
 
-// Encodings is the preferred way to build the alphabet.
-// It defines a scope function for ordered unicode code points.
-// See codepoints.go of list.
-type Encodings interface {
-	scope() (rune, rune)
-}
-
 type TokenRange struct {
-	cp     []CodePoint
-	uniset []rune
+	cp     []CodePoint `codePoint=order:utype:readtype`
+	uniset []rune      `unicodeSet`
 }
 
 // CodePoint is the struct for unicode.go,
 // it contains the order of the range code points
 // and implement the Encodings interface.
 type CodePoint struct {
-	order []rune
-	utyp  unicodeType
+	order   []rune
+	utyp    unicodeType
+	readtyp string
 }
 
-// scope implements the Encodings interface through
-// CodePoint structs defined over ordered range of
-// Unicode Code Points.
-func (cp CodePoint) scope() (startidx, stopidx rune) {
-	return cp.order[0], cp.order[1]
-}
+// used for the IOTA generator
+type unicodeType int
+
+// Constant IOTA generator for tracking in the lexer
+const (
+	itemBasicLatin unicodeType = iota
+	itemCyrillic
+	itemSamaritan
+	itemTelugu
+	itemMyanmar
+	itemUnifiedCanadianAboriginalSyllabics
+	itemMongolian
+	itemLepcha
+	itemGeneralPunctuation
+	itemControlPictures
+	itemBraillePatterns
+	itemGlagolitic
+	itemCjkSymbolsPunctuation
+	itemCjkUnifiedIdeographsExtA
+	itemCjkUnifiedIdeographs
+)
+
+// Set of variables defined over CodePoints using IOTA generator for sequential blocks of Unicode
+var (
+	BasicLatin                         = CodePoint{order: []rune{0, 1023}, utyp: itemBasicLatin, readtyp: "Basic Latin"}
+	Cyrillic                           = CodePoint{order: []rune{1024, 2047}, utyp: itemCyrillic, readtyp: "Cyrillic"}
+	Samaritan                          = CodePoint{order: []rune{2048, 3071}, utyp: itemSamaritan, readtyp: "Samaritan"}
+	Telugu                             = CodePoint{order: []rune{3072, 4095}, utyp: itemTelugu, readtyp: "Telugu"}
+	Myanmar                            = CodePoint{order: []rune{4096, 5119}, utyp: itemMyanmar, readtyp: "Myanmar"}
+	UnifiedCanadianAboriginalSyllabics = CodePoint{order: []rune{5120, 6143}, utyp: itemUnifiedCanadianAboriginalSyllabics, readtyp: "Canadian Aboriginal"}
+	Mongolian                          = CodePoint{order: []rune{6144, 7167}, utyp: itemMongolian, readtyp: "Mongolian"}
+	Lepcha                             = CodePoint{order: []rune{7168, 8191}, utyp: itemLepcha, readtyp: "Lepcha"}
+	GeneralPunctuation                 = CodePoint{order: []rune{8192, 9125}, utyp: itemGeneralPunctuation, readtyp: "General Punctuation"}
+	ControlPictures                    = CodePoint{order: []rune{9216, 10239}, utyp: itemControlPictures, readtyp: "Control Pictures"}
+	BraillePatterns                    = CodePoint{order: []rune{10240, 11263}, utyp: itemBraillePatterns, readtyp: "Braille"}
+	Glagolitic                         = CodePoint{order: []rune{11264, 12287}, utyp: itemGlagolitic, readtyp: "Glagolitic"}
+	CjkSymbolsPunctuation              = CodePoint{order: []rune{12288, 13311}, utyp: itemCjkSymbolsPunctuation, readtyp: "CjkSymbolsPunctuation"}
+	CjkUnifiedIdeographsExtA           = CodePoint{order: []rune{13312, 20479}, utyp: itemCjkUnifiedIdeographsExtA, readtyp: "CjkUnifiedIdeographsExtA"}
+	CjkUnifiedIdeographs               = CodePoint{order: []rune{20480, 40959}, utyp: itemCjkUnifiedIdeographs, readtyp: "CjkUnifiedIdeographs"}
+)
 
 // UnicodeSet builds a slice of runes based on unicode ranges
 // for any Encodings struct that has the Unicode Code Points range
 // defined.
-// fmt.Println("BasicLatin:", UnicodeAlphabet(BasicLatin,Cyrllic))
-func UnicodeSet(sets ...Encodings) TokenRange {
-	var uset []rune
-	for _, s := range sets {
-		startidx, stopidx := s.scope()
-		tmp := make([]rune, stopidx, stopidx)
-		for i := startidx; i < stopidx; i++ {
+//
+func UnicodeAlphabet(sets ...CodePoint) TokenRange {
+	t := TokenRange{uniset: make([]rune, 0), cp: make([]CodePoint, 0)}
+
+	for _, cop := range sets {
+		startidx := cop.order[0]
+		stopidx := cop.order[1]
+		t.cp = append(t.cp, cop)
+		// allocate +1 index size and max for temporary slice
+		tmp := make([]rune, stopidx+1, stopidx+1)
+		for i := startidx; i <= stopidx; i++ {
 			//fmt.Println(tmp[i])
 			tmp[i] = rune(i)
 		}
-		//fmt.Println(us[start:])
-		//fmt.Println(len(tmp))
-		uset = append(uset, tmp[startidx:]...)
+		t.uniset = append(t.uniset, tmp[startidx:]...)
 	}
-	//fmt.Println(len(uniset))
-	TokenRange.uniset = uset
-	return
+	return t
 }
 
 // TokenBase is the Interface to build() with different sets of rune

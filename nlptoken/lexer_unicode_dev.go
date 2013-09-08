@@ -16,8 +16,9 @@ type TokenRange struct {
 }
 
 type CodePoint struct {
-	order []rune
-	utyp  unicodeType
+	order   []rune
+	utyp    unicodeType
+	readtyp string
 }
 
 type unicodeType int
@@ -41,22 +42,21 @@ const (
 )
 
 var (
-	BasicLatin                         = CodePoint{order: []rune{0, 1023}, utyp: itemBasicLatin}                            //
-	Cyrillic                           = CodePoint{order: []rune{1024, 2047}, utyp: itemCyrillic}                           //
-	Samaritan                          = CodePoint{order: []rune{2048, 3071}, utyp: itemSamaritan}                          //
-	Telugu                             = CodePoint{order: []rune{3072, 4095}, utyp: itemTelugu}                             //
-	Myanmar                            = CodePoint{order: []rune{4096, 5119}, utyp: itemMyanmar}                            //
-	UnifiedCanadianAboriginalSyllabics = CodePoint{order: []rune{5120, 6143}, utyp: itemUnifiedCanadianAboriginalSyllabics} //
-	Mongolian                          = CodePoint{order: []rune{6144, 7167}, utyp: itemMongolian}                          //
-	Lepcha                             = CodePoint{order: []rune{7168, 8191}, utyp: itemLepcha}                             //
-	GeneralPunctuation                 = CodePoint{order: []rune{8192, 9125}, utyp: itemGeneralPunctuation}                 //
-	ControlPictures                    = CodePoint{order: []rune{9216, 10239}, utyp: itemControlPictures}                   //
-	BraillePatterns                    = CodePoint{order: []rune{10240, 11263}, utyp: itemBraillePatterns}                  //
-	Glagolitic                         = CodePoint{order: []rune{11264, 12287}, utyp: itemGlagolitic}                       //
-	CjkSymbolsPunctuation              = CodePoint{order: []rune{12288, 13311}, utyp: itemCjkSymbolsPunctuation}            // Chinese, Japanese, Korean
-	CjkUnifiedIdeographsExtA           = CodePoint{order: []rune{13312, 20479}, utyp: itemCjkUnifiedIdeographsExtA}         // Chinese, Japanese, Korean
-	CjkUnifiedIdeographs               = CodePoint{order: []rune{20480, 40959}, utyp: itemCjkUnifiedIdeographs}             // Chinese, Japanese, Korean
-	//YiSyllables							= CodePoint{order: []rune{0, 0}}  //
+	BasicLatin                         = CodePoint{order: []rune{0, 1023}, utyp: itemBasicLatin, readtyp: "Basic Latin"}                                    //
+	Cyrillic                           = CodePoint{order: []rune{1024, 2047}, utyp: itemCyrillic, readtyp: "Cyrillic"}                                      //
+	Samaritan                          = CodePoint{order: []rune{2048, 3071}, utyp: itemSamaritan, readtyp: "Samaritan"}                                    //
+	Telugu                             = CodePoint{order: []rune{3072, 4095}, utyp: itemTelugu, readtyp: "Telugu"}                                          //
+	Myanmar                            = CodePoint{order: []rune{4096, 5119}, utyp: itemMyanmar, readtyp: "Myanmar"}                                        //
+	UnifiedCanadianAboriginalSyllabics = CodePoint{order: []rune{5120, 6143}, utyp: itemUnifiedCanadianAboriginalSyllabics, readtyp: "Canadian Aboriginal"} //
+	Mongolian                          = CodePoint{order: []rune{6144, 7167}, utyp: itemMongolian, readtyp: "Mongolian"}                                    //
+	Lepcha                             = CodePoint{order: []rune{7168, 8191}, utyp: itemLepcha, readtyp: "Lepcha"}                                          //
+	GeneralPunctuation                 = CodePoint{order: []rune{8192, 9125}, utyp: itemGeneralPunctuation, readtyp: "General Punctuation"}                 //
+	ControlPictures                    = CodePoint{order: []rune{9216, 10239}, utyp: itemControlPictures, readtyp: "Control Pictures"}                      //
+	BraillePatterns                    = CodePoint{order: []rune{10240, 11263}, utyp: itemBraillePatterns, readtyp: "Braille"}                              //
+	Glagolitic                         = CodePoint{order: []rune{11264, 12287}, utyp: itemGlagolitic, readtyp: "Glagolitic"}                                //
+	CjkSymbolsPunctuation              = CodePoint{order: []rune{12288, 13311}, utyp: itemCjkSymbolsPunctuation, readtyp: "CjkSymbolsPunctuation"}          // Chinese, Japanese, Korean
+	CjkUnifiedIdeographsExtA           = CodePoint{order: []rune{13312, 20479}, utyp: itemCjkUnifiedIdeographsExtA, readtyp: "CjkUnifiedIdeographsExtA"}    // Chinese, Japanese, Korean
+	CjkUnifiedIdeographs               = CodePoint{order: []rune{20480, 40959}, utyp: itemCjkUnifiedIdeographs, readtyp: "CjkUnifiedIdeographs"}            // Chinese, Japanese, Korean
 )
 
 //3072 - 4095 == Telugu
@@ -79,8 +79,9 @@ func UnicodeSet(sets ...CodePoint) TokenRange {
 		startidx := cop.order[0]
 		stopidx := cop.order[1]
 		t.cp = append(t.cp, cop)
-		tmp := make([]rune, stopidx, stopidx)
-		for i := startidx; i < stopidx; i++ {
+		// allocate +1 index size and max for temporary slice
+		tmp := make([]rune, stopidx+1, stopidx+1)
+		for i := startidx; i <= stopidx; i++ {
 			//fmt.Println(tmp[i])
 			tmp[i] = rune(i)
 		}
@@ -94,13 +95,16 @@ func main() {
 	//fmt.Println(BasicLatin, Cyrillic)
 	//fmt.Println(BasicLatin.order,len(BasicLatin.order),cap(BasicLatin.order))
 	//fmt.Println("BasicLatin:", UnicodeSet(BasicLatin))
-	th := UnicodeSet(BasicLatin, Cyrillic)
-	//fmt.Println(th)
+	th := UnicodeSet(BasicLatin, Cyrillic, CjkUnifiedIdeographsExtA)
+	fmt.Println("Code Points", th.cp)
+	fmt.Println("Uniset", th.uniset)
 
-	for _, iot := range th.cp {
-		fmt.Println("UnicodeType iota value", iot.utyp)
-		for _, c := range th.uniset {
-			fmt.Println("Char", string(c), "Decimal Code Point value:", c)
+	/*
+		for _, iot := range th.cp {
+			fmt.Println("UnicodeType iota value", iot.utyp)
+			for _, c := range th.uniset {
+				fmt.Println("Char", string(c), "Decimal Code Point value:", c)
+			}
 		}
-	}
+	*/
 }
