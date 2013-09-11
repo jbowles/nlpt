@@ -16,6 +16,7 @@ package nlptoken
 /////////  LEXER (go-style lexer) MODEL //////////
 //////////////////////////////////////////////////
 
+/*
 type TokenRange struct {
 	cp     []CodePoint `codePoint=order:utype:readtype`
 	uniset []rune      `unicodeSet`
@@ -71,7 +72,7 @@ var (
 	CjkUnifiedIdeographs               = CodePoint{order: []rune{20480, 40959}, utyp: itemCjkUnifiedIdeographs, readtyp: "CjkUnifiedIdeographs"}
 )
 
-// UnicodeSet builds a slice of runes based on unicode ranges
+// UnicodeAlphabet builds a slice of runes based on unicode ranges
 // for any Encodings struct that has the Unicode Code Points range
 // defined.
 //
@@ -92,7 +93,11 @@ func UnicodeAlphabet(sets ...CodePoint) TokenRange {
 	}
 	return t
 }
+*/
 
+/////////////////////////////////////////////////////////////////////////////////
+////////////////////       DEPRECATED            ////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 // TokenBase is the Interface to build() with different sets of rune
 // structs for tokenizing text.
 // It's been locked down to 2 rune slices per struct.
