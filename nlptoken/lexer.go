@@ -8,6 +8,8 @@ package nlptoken
 
 import (
 	"fmt"
+	//"strings"
+	"unicode/utf8"
 )
 
 // create a new type struct that has CodePoint in it and utype
@@ -33,6 +35,7 @@ type item struct {
 const (
 	itemEOF unicodeType = iota
 	itemEOS
+	itemSpaceMeta
 	itemError
 	itemBasicLatin
 	itemCyrillic
@@ -87,43 +90,30 @@ func UnicodeSet(sets ...CodePoint) TokenRange {
 	return t
 }
 
-const spaceMeta = " "
-
-func (i item) String() string {
-	switch i.typ {
-	case itemEOF:
-		return "EOF"
-	case itemError:
-		return i.val
-	}
-	if len(i.val) > 10 {
-		return fmt.Sprintf("%.10q...", i.val)
-	}
-	return fmt.Sprintf("%q", i.val) // double-quoted string safely escaped with Go syntax
-}
-
-type lexer struct {
-	name  string    // used only for error reports.
-	input string    // the string being scanned.
-	start int       // start position of this item.
-	pos   int       // current position in the input.
-	width int       // width of last rune read from input.
-	items chan item // channel of scanned items.
+type Lexer struct {
+	name  string      // used only for error reports.
+	input string      // the string being scanned.
+	start int         // start position of this item.
+	pos   int         // current position in the input.
+	width int         // width of last rune read from input.
+	state unicodeType // unicodeType
+	items chan item   // channel of scanned items.
 
 }
 
 // stateFn represents the state of the scanner
 // as a function that returns the next state.
-type stateFn func(*lexer) stateFn
+type stateFunc func(*Lexer) stateFunc
 
 // lex initializes itself to lex a string and launches the state machine as a goroutine, returning the lexer and a channel of items
-func lex(name, input string) (*lexer, chan item) {
-	l := &lexer{
+func lexify(name, input string) (*Lexer, chan item) {
+	l := &Lexer{
 		name:  name,
 		input: input,
 		items: make(chan item),
 	}
 	go l.run() //Concurrently run state machine
+	fmt.Println("hello lexify")
 	return l, l.items
 }
 
@@ -131,13 +121,65 @@ func lex(name, input string) (*lexer, chan item) {
 * run lexes the input by executing state functions until
 *  the state is nil.
 * lexer begins by looking for plain text:
-*  initial state is the function lexText()
+*  initial state is the function lexToken()
 *  It absorbs plain text until "character" is encountered
  */
-func (l *lexer) run() {
+func (l *Lexer) run() {
 	//notice that since lexText is already in run() scope it will have access to the lexer pointer
-	for state := lexText; state != nil; {
+	for state := lexToken; state != nil; {
 		state = state(l)
+		fmt.Println("hello run")
 	}
 	close(l.items)
+}
+
+// emit passes items back via item channel
+func (l *Lexer) emit(t unicodeType) {
+	//fmt.Println(l.input[l.start:l.pos])
+	l.items <- item{t, l.input[l.start:l.pos]}
+	l.start = l.pos
+	fmt.Println("hello emit")
+}
+
+func lexToken(l *Lexer) (s stateFunc) {
+	for {
+		if l.pos > l.start {
+			l.emit(itemBasicLatin)
+			fmt.Println("hello lextoken")
+		}
+		return lexNext
+	}
+	// Correctly reached EOF.
+	if l.pos > l.start {
+		l.emit(itemBasicLatin)
+	}
+	l.emit(itemEOF)
+	return nil
+}
+
+func lexNext(l *Lexer) stateFunc {
+	l.pos += 1
+	l.emit(itemBasicLatin)
+	return lexLexer
+}
+
+func lexLexer(l *Lexer) stateFunc {
+	for {
+		switch r := l.next(); {
+		case r <= BasicLatin.order[0] || r >= BasicLatin.order[1023]:
+			l.emit(itemBasicLatin)
+		}
+	}
+}
+
+// next returns the next rune in the input.
+func (l *Lexer) next() (r rune) {
+	if l.pos >= len(l.input) {
+		l.width = 0
+		return r
+	}
+	r, l.width =
+		utf8.DecodeRuneInString(l.input[l.pos:])
+	l.pos += l.width
+	return r
 }
