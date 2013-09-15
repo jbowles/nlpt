@@ -8,7 +8,7 @@
 * or less (the limit of the Rune type).
 *
 * SimpleAlphabet and TokenBase:	    are deprecated but kept around for some historical reasons
-* UnicodeAlphabet and TokenRange:	are the preferred way to build an alphabet.
+* UniAlph and TokRange:	are the preferred way to build an alphabet.
  */
 package nlptoken
 
@@ -16,27 +16,31 @@ package nlptoken
 /////////  LEXER (go-style lexer) MODEL //////////
 //////////////////////////////////////////////////
 
-/*
-type TokenRange struct {
-	cp     []CodePoint `codePoint=order:utype:readtype`
-	uniset []rune      `unicodeSet`
+type TokRange struct {
+	cp     []CodePoint
+	uniset []rune
 }
 
-// CodePoint is the struct for unicode.go,
-// it contains the order of the range code points
-// and implement the Encodings interface.
 type CodePoint struct {
 	order   []rune
 	utyp    unicodeType
 	readtyp string
 }
 
-// used for the IOTA generator
 type unicodeType int
 
-// Constant IOTA generator for tracking in the lexer
 const (
-	itemBasicLatin unicodeType = iota
+	itemError unicodeType = iota
+	itemEOF
+	itemWhiteSpace
+	itemAllUpperCase
+	itemMultiUppercase
+	itemUpperCaseSpaceUpperCase
+	itemNounCompound
+	itemNounDashCompound
+	itemVerbCompound
+	itemVerbDashCompound
+	itemBasicLatin
 	itemCyrillic
 	itemSamaritan
 	itemTelugu
@@ -53,7 +57,6 @@ const (
 	itemCjkUnifiedIdeographs
 )
 
-// Set of variables defined over CodePoints using IOTA generator for sequential blocks of Unicode
 var (
 	BasicLatin                         = CodePoint{order: []rune{0, 1023}, utyp: itemBasicLatin, readtyp: "Basic Latin"}
 	Cyrillic                           = CodePoint{order: []rune{1024, 2047}, utyp: itemCyrillic, readtyp: "Cyrillic"}
@@ -72,12 +75,17 @@ var (
 	CjkUnifiedIdeographs               = CodePoint{order: []rune{20480, 40959}, utyp: itemCjkUnifiedIdeographs, readtyp: "CjkUnifiedIdeographs"}
 )
 
-// UnicodeAlphabet builds a slice of runes based on unicode ranges
-// for any Encodings struct that has the Unicode Code Points range
-// defined.
-//
-func UnicodeAlphabet(sets ...CodePoint) TokenRange {
-	t := TokenRange{uniset: make([]rune, 0), cp: make([]CodePoint, 0)}
+/* UniAlph builds a range of Unicode values with specific ordering range, unicode iota type, and a human readable readtyp
+*	  It is to be used in the context of tokenizing text via checking set membership of the token to the token range
+*	  Example:
+*		s := UniAlph(BasicLatin,Cyrillic,GeneralPunctuation)
+*		fmt.Println(s.cp)
+*		for _,t := range s.uniset {
+*			  fmt.Prtinf("Character: %c, Rune: %v", t, t)
+*		}
+ */
+func UniAlph(sets ...CodePoint) TokRange {
+	t := TokRange{uniset: make([]rune, 0), cp: make([]CodePoint, 0)}
 
 	for _, cop := range sets {
 		startidx := cop.order[0]
@@ -93,7 +101,6 @@ func UnicodeAlphabet(sets ...CodePoint) TokenRange {
 	}
 	return t
 }
-*/
 
 /////////////////////////////////////////////////////////////////////////////////
 ////////////////////       DEPRECATED            ////////////////////////////////
