@@ -31,8 +31,11 @@
         <h1>
 <a name="natural-language-processing-toolkit" class="anchor" href="#natural-language-processing-toolkit"><span class="octicon octicon-link"></span></a>Natural Language Processing Toolkit</h1>
 
-<p>Written in Go.
-This is the tested, stable, and production ready brnach of a research project to write natural language processing tools in Go. NLPT is built up from multiple sub-packages (each separately accessible).</p>
+<p>Written in Go.</p>
+
+<p>If you wanna see where all the work is happening, go to <a href="https://github.com/jbowles/nlpt/tree/exp">exp branch</a>.</p>
+
+<p>This is the tested, stable, and production ready brnach of a research project to write natural language processing tools in Go. NLPT is built up from multiple sub-packages (each separately accessible).</p>
 
 <p>Get it:</p>
 
@@ -44,34 +47,47 @@ This is the tested, stable, and production ready brnach of a research project to
 <li>(or update: <code>go get -u github.com/jbowles/nlpt</code>)</li>
 </ul>
 </li>
-</ul><p>Get a subpackage (for example, the tokenizer package <code>tkn</code>):</p>
+</ul><p>Functionality is separated into sub packages, which are usable outside the scope of the main NLPT project. Naming of each subpackage will be consistent as per the <code>first 3 letter prefix</code> + <code>subpackage name</code>. For example: tokenizer = <code>nlptokenizer</code>, stemmer = <code>nlpstemmer</code>, tagger = <code>nlptagger</code>.
+Get a subpackage:</p>
 
 <ul>
 <li>
-<code>go get github.com/jbowles/nlpt/tkn</code> 
+<code>go get github.com/jbowles/nlpt/nlptokenizer</code> 
 
 <ul>
-<li>(or update: <code>go get -u github.com/jbowles/nlpt/tkn</code>)</li>
+<li>(or update: <code>go get -u github.com/jbowles/nlpt/nlptokenizer</code>)</li>
 </ul>
 </li>
-</ul><p><img src="https://github.com/jbowles/nlpt/raw/master/nlpt2.jpg" alt="Alt text" title="Natural Language Processing Toolkit in Go"></p>
+</ul><p>Thanks to the Go Berlin users group for letting me ripoff their gopher image!</p>
+
+<p><img src="https://github.com/jbowles/nlpt/raw/exp/nlpt.jpg" alt="Alt text" title="Natural Language Processing Toolkit in Go"></p>
 
 <h2>
 <a name="branches" class="anchor" href="#branches"><span class="octicon octicon-link"></span></a>Branches</h2>
 
 <ul>
 <li>
-<code>stable</code> comes out of <code>experiment</code> and for writing tests and ensuring stability</li>
+<code>exp</code>
+
+<ul>
+<li>Low-level development and general messiness</li>
+</ul>
+</li>
 <li>
-<code>experiment</code> is for low-level development and general messiness</li>
-</ul><p>Workflow == <code>experiment</code> -&gt; <code>stable</code> -&gt; <code>master</code></p>
+<code>stable</code>
+
+<ul>
+<li>Testing, performance, run standard data sets, P&amp;R (precision and recall) where appropriate</li>
+</ul>
+</li>
+</ul><p>Development workflow == <code>exp</code> -&gt; <code>stable</code> -&gt; <code>master</code></p>
 
 <h2>
 <a name="criteria-each-sub-package" class="anchor" href="#criteria-each-sub-package"><span class="octicon octicon-link"></span></a>Criteria each sub-package:</h2>
 
 <ul>
 <li>
-<code>Stability</code> (Experimental, Usable, Stable) to determine whether the API is production ready. </li>
+<code>Stability</code> (Experimental, Stable, Production) to determine whether the API is production ready. </li>
 <li>
 <code>Volatility</code> (Radical, Mild, Stable) to determine whether the API is likely to change.</li>
 <li>
@@ -103,17 +119,27 @@ Tests:      3   - Stable
 
 <ul>
 <li>Support for Arabic and Mandarin are coming, though probably not until late 2014.</li>
-<li>Eventually move to probabilistic model.</li>
+<li>Eventually move to a more probabilistic model.</li>
 </ul><h3>
 <a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h3>
 
-<p>Tokenizer <strong>does not use regular expressions for its unicode character pattern matching</strong>. Instead, it leverages the Go Rune Type (<code>int32</code> aliases for Unicode characters) and the String Types defined within Go Struct Types. Basically, you can <strong>build custom unicode alphabets</strong> that are used as an allowable set of characters for the tokenizing. Rivet Tokenizer seeks to provide an easy to use, flexible work flow that can adapt to novel requirements and be extended easily. I am building it with three main concerns:</p>
+<p>Tokenizer it leverages the Go Rune Type (<code>int32</code> aliases for Unicode). Basically, you can <strong>build custom unicode alphabets</strong> that are used for pattern matching (instead of regular expressions). General goals:</p>
 
 <ol>
 <li>Broader spectrum of Unicode characaters used across ever expanding and changing media</li>
 <li>Special or nonstandard characters used in software application logs</li>
 <li>The rise of new languages on the web, and the velocity of disappearing endangered langauges</li>
-</ol><h2>
+</ol><h3>
+<a name="sources" class="anchor" href="#sources"><span class="octicon octicon-link"></span></a>Sources</h3>
+
+<ul>
+<li>Unicode code points table for Go Runes
+
+<ul>
+<li><a href="http://www.utf8-chartable.de/unicode-utf8-table.pl?utf8=dec">UTF8 Character Table (in decimal)</a></li>
+</ul>
+</li>
+</ul><h2>
 <a name="tf-idf-term-frequency-inverse-document-frequency" class="anchor" href="#tf-idf-term-frequency-inverse-document-frequency"><span class="octicon octicon-link"></span></a>TF-IDF: Term Frequency-Inverse Document Frequency</h2>
 
 <p>The Tf-Idf stuff is not done, I've just been playing with different ways of doing it. There is not a full model finished yet and so the first implementation is not complete.</p>
@@ -199,7 +225,7 @@ Tests:      0   - Not Started
 <ul>
 <li>"Finite State Technology Tools for Natural Language Processing"</li>
 </ul>
-<div class="highlight"><pre><span class="cm">/*</span>
+<div class="highlight highlight-go"><pre><span class="cm">/*</span>
 <span class="cm"> ** DESCRIPTION FROM XEROX **</span>
 <span class="cm">These tools, called xfst, twolc, and lexc, are used in many linguistic applications such as morphological analysis, tokenisation, and shallow parsing of a wide variety of natural languages. The finite state tools here are built on top of a software library that provides algorithms to create automata from regular expressions and equivalent formalisms and contains both classical operations, such as union and composition, and new algorithms such as replacement and local sequentialisation.</span>
 
@@ -223,7 +249,7 @@ Tests:      0   - Not Started
 <ul>
 <li>"... cloud-based and on-premise text analysis infrastructure"</li>
 </ul>
-<div class="highlight"><pre><span class="cm">/*</span>
+<div class="highlight highlight-go"><pre><span class="cm">/*</span>
 <span class="cm">** DESCRIPTION FROM ALCHEMY **</span>
 <span class="cm">AlchemyAPI uses natural language processing technology and machine learning algorithms to extract semantic meta-data from content, such as information on people, places, companies, topics, facts, relationships, authors, and languages.</span>
 
