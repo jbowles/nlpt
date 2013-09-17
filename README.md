@@ -16,7 +16,7 @@ Get a subpackage:
 
 Thanks to the Go Berlin users group for letting me ripoff their gopher image!
 
-![Alt text](https://github.com/jbowles/nlpt/raw/master/nlpt.jpg "Natural Language Processing Toolkit in Go")
+![Alt text](https://github.com/jbowles/nlpt/raw/exp/nlpt.jpg "Natural Language Processing Toolkit in Go")
 
 ## Branches
 * `exp`
