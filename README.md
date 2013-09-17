@@ -87,6 +87,9 @@ Examples:  []()
 
 # Resources
 
+## Text Processing in Go
+* [Go machine learning nlp libraries](http://biosphere.cc/software-engineering/go-machine-learning-nlp-libraries/)
+
 ## Tokenizer
 * [Xerox Tokenizer Service](http://open.xerox.com/Services/fst-nlp-tools/Consume/175)
 
@@ -141,5 +144,3 @@ One reason for knowing about NLP services is they can be used for testing and co
   API endpoints are provided for performing content analysis on Internet-accessible web pages, posted HTML or text content.
   */
   ```
-
-
