@@ -14,6 +14,8 @@ Get a subpackage:
 * `go get github.com/jbowles/nlpt/nlptokenizer` 
   * (or update: `go get -u github.com/jbowles/nlpt/nlptokenizer`)
 
+Thanks to the Go Berlin users group for letting me ripoff their gopher image!
+
 ![Alt text](https://github.com/jbowles/nlpt/raw/master/nlpt.jpg "Natural Language Processing Toolkit in Go")
 
 ## Branches
