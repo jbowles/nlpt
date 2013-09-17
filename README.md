@@ -97,6 +97,7 @@ Examples:  []()
 * [Xerox Morphological Analysis](http://open.xerox.com/Services/fst-nlp-tools/Pages/morphology) 
 
 ## Part of Speech Tags
+* [Part of Speech Tagger in about 200 lines of Python](http://honnibal.wordpress.com/)
 * [Xerox POS Tagger Service](http://open.xerox.com/Services/fst-nlp-tools/Consume/178)
 * [Xerox POS Tagset Standard](http://open.xerox.com/Services/fst-nlp-tools/Pages/English%20Part-of-Speech%20Tagset)
 
