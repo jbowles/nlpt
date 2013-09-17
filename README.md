@@ -14,7 +14,7 @@ Get a subpackage:
 * `go get github.com/jbowles/nlpt/nlptokenizer` 
   * (or update: `go get -u github.com/jbowles/nlpt/nlptokenizer`)
 
-![Alt text](https://github.com/jbowles/nlpt/raw/master/nlpt2.jpg "Natural Language Processing Toolkit in Go")
+![Alt text](https://github.com/jbowles/nlpt/raw/master/nlpt.jpg "Natural Language Processing Toolkit in Go")
 
 ## Branches
 * `exp`
