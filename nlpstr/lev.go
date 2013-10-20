@@ -36,7 +36,7 @@ func Levenshtein(s1, s2 string) int {
 				deletion := vcell[(i1-1)*width+j2] + 1
 				insertion := vcell[(i1*width+(j2-1))] + 1
 				substitution := vcell[((i1-1)*width+(j2-1))] + 1
-				vcell[i1*width+j2] = rvt_math.MinInt(deletion, insertion, substitution)
+				vcell[i1*width+j2] = nlpmath.MinInt(deletion, insertion, substitution)
 			}
 		}
 	}
