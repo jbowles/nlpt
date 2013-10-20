@@ -13,7 +13,8 @@
 package nlptoken
 
 //////////////////////////////////////////////////
-/////////  LEXER (go-style lexer) MODEL //////////
+/////  DEFINE ALPHABETS WITH A LITTLE ///////////
+/// MORE METADATA THAN USING unicdoe.CaseRange ///
 //////////////////////////////////////////////////
 
 type TokRange struct {
@@ -75,7 +76,7 @@ var (
 	CjkUnifiedIdeographs               = CodePoint{order: []rune{20480, 40959}, utyp: itemCjkUnifiedIdeographs, readtyp: "CjkUnifiedIdeographs"}
 )
 
-/* UniAlph builds a range of Unicode values with specific ordering range, unicode iota type, and a human readable readtyp
+/* UnicodeAlphabet builds a range of Unicode values with specific ordering range, unicode iota type, and a human readable readtyp
 *	  It is to be used in the context of tokenizing text via checking set membership of the token to the token range
 *	  Example:
 *		s := UniAlph(BasicLatin,Cyrillic,GeneralPunctuation)
