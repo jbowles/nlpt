@@ -1,7 +1,13 @@
 # Natural Language Processing Toolkit
 Written in Go.
 
-If you wanna see where all the work is happening, go to [exp branch](https://github.com/jbowles/nlpt/tree/exp).
+Progress has been slow, but I am fully comitted to NLPT; even if there are silent spells. Some of my work on NLP and Go cannot be open-sourced for given periods of time, and now I have chance to be working in a more open-source friendly capacity!
+
+I am a linguist by trade and so NLP is always something I want to write code for. I now have the chance to work on Go professionally in a more open-source friendly capacity and this bodes well for this project. 
+
+[siw](https://github.com/jbowles/siw) is the Simple Words project and is the place I've playing out some basic ideas in shorter form. If you don't see any progress on `nlpt`, you can be sure that `siw` has got something brewing.
+
+[exp branch](https://github.com/jbowles/nlpt/tree/exp) is the experimental branch; this will be the default branch until more progress is made on the core architecture (tokenzier, stemmer, and tagger).
 
 This is the tested, stable, and production ready brnach of a research project to write natural language processing tools in Go. NLPT is built up from multiple sub-packages (each separately accessible).
 
