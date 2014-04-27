@@ -15,6 +15,22 @@ const (
 	ThoreauThree = "What lies behind us and what lies ahead of us are tiny matters compared to what lives within us."
 )
 
+func BenchmarkWhiteSpace(*testing.B) {
+	WhiteSpace(ThoreauThree, "")
+}
+
+func BenchmarkUnicTokenGoodStr(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		UnicToken(ThoreauOne)
+	}
+}
+
+func BenchmarkUnicTokenBucketBadStr(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		UnicToken(BadStr)
+	}
+}
+
 func TestWhiteSpace(t *testing.T) {
 	tok := WhiteSpace(ThoreauThree, "")
 	if len(tok) != 19 {
@@ -54,7 +70,7 @@ func TestTokenizeBadString(t *testing.T) {
 	}
 }
 
-func TestUnictOnlyString(t *testing.T) {
+func TestUnicToken(t *testing.T) {
 	tok1, _ := UnicToken(ThoreauOne)
 	tok2, _ := UnicToken(ThoreauTwo)
 	tok3, _ := UnicToken(ThoreauThree)

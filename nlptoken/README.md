@@ -1,10 +1,66 @@
 #nlptoken
+
+## Benchmarking and Profiling
+```sh
+BenchmarkWhiteSpace	              2000000000	  0.00 ns/op	  0 B/op	      0 allocs/op
+BenchmarkUnicTokenGoodStr	        100000	      18441 ns/op	  12664 B/op	  187 allocs/op
+BenchmarkUnicTokenBucketBadStr	  200000	      12400 ns/op	  7249 B/op	    133 allocs/op
+coverage: 66.7% of statements
+ok  	github.com/jbowles/nlpt/nlptoken	4.648s
+```
+
 ## Whitespace
 
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/jbowles/nlpt/nlptoken"
+)
+
+const (
+	BadStr = "expect0.7rant7! Then I want to show Snow White and the Seven Dwarves. <=AndThe start of a new sentence. And\n then\n\nagain for One and NASA?"
+)
+
+func main() {
+	tok := nlptoken.WhiteSpace(BadStr)
+	fmt.Printf("WhiteSpace on Bad String: %v", tok)
+}
+/*
+WhiteSpace on Bad String: [expect0.7rant7! Then I want to show Snow White and the Seven Dwarves. <=AndThe start of a new sentence. And
+ then
+
+again for One and NASA?]
+*/
+```
+
+
+##UnicToken
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/jbowles/nlpt/nlptoken"
+)
+
+const (
+	BadStr = "expect0.7rant7! Then I want to show Snow White and the Seven Dwarves. <=AndThe start of a new sentence. And\n then\n\nagain for One and NASA?"
+)
+
+func main() {
+	ut, _ := nlptoken.UnicToken(BadStr)
+	fmt.Printf("Unicode Token on Bad String: %v", ut)
+}
+
+/*
+Unicode Token on Bad String: [expectrant Then I want to show Snow White and the Seven Dwarves AndThe start of a new sentence And  then  again for One and NASA]
+*/
+```
+
 ## Punkt
-
-##Tmachine
-
 ## Lexer
 ```go
 // Copyright ©2013 The rivet Authors. All rights reserved.

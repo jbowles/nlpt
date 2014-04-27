@@ -39,18 +39,33 @@ Development workflow == `exp` -> `stable` -> `master`
 * `Examples` link to external repo with more documentation and examples.
 
 ## General
-NLPT broadly supports minimal functionality for text in following language sets:
+NLPT broadly supports minimal functionality for the full range of 4 bit unicode code points.
 
-* Text in Roman alphabet with diacritics (English, Spanish, French, German, etc...)
-* Text in Cyrillic alphabet (Russian, Belarusian, Ukrainian, Rusyn, Serbian, Bulgarin, Macedonian, Chechen, and other Slavic langauges.
-* Text with Greek alphabet
-* **Support for Arabic and Mandarin are coming in late 2014**
 
 ## Tokenizer
 
-    Stability:  3   - Stable
-    Volatility: 3   - Stable
-    Tests:      3   - Stable
+* **Done**:
+  * Basic Whitespace tokenizer
+   * only whitespace, cannot parse punctuation
+  * Unicode tokenizer (good for noisy data sets)
+   * captures all unicode code points into a `Bucket`
+   * cannot return sequences of numbers (e.g., dates)
+   * will reconstruct 'nosiy" text (e.g., `th0s7!e` => `["thse"], [0, 7], ["!"]`)
+
+* **In Progress**:
+  * State Machine-like lexer (inspired by [Rob Pike: Lexical Scanning in Go](http://cuddle.googlecode.com/hg/talk/lex.html#landing-slide))
+  * Punkt algorithm (see python NLTK project)
+
+Run tests and benchmarks:
+
+```sh
+go test -v
+go test -benchmem -bench .
+```
+
+    Stability:  2   - Stable
+    Volatility: 2   - Stable
+    Tests:      2   - Stable
 Examples:   []()
 
 ### TODO
