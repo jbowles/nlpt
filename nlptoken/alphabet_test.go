@@ -9,7 +9,7 @@ func TestBasicLatin(t *testing.T) {
 	scporder := s.cp[0].order
 
 	var read_type string = "Basic Latin"
-	var u_type unicodeType = 10
+	var u_type UnicodeType = 10
 	var rune_order = []rune{0, 1023}
 
 	if scprt != read_type {
@@ -40,7 +40,7 @@ func TestCyrillicNotGeneralPunctuation(t *testing.T) {
 	scporder := s.cp[0].order
 
 	var read_type string = "General Punctuation"
-	var u_type unicodeType = 18
+	var u_type UnicodeType = 18
 	var rune_order = []rune{8192, 9125}
 
 	if scprt == read_type {
