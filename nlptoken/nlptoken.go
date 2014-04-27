@@ -19,10 +19,10 @@ func Readable(tokens []string, separator string) (readableTok []string) {
 }
 
 //WhiteSpace uses strings package Split() with a read separator for more friendly humna reading of slices
-func WhiteSpace(text, readSep string) (words []string) {
-	words = strings.Split(text, " ")
-	if readSep != "" {
-		return Readable(words, readSep)
+func WhiteSpace(text ...string) (words []string) {
+	words = strings.Split(text[0], " ")
+	if len(text) == 2 {
+		return Readable(words, text[1])
 	} else {
 		return
 	}
@@ -30,8 +30,8 @@ func WhiteSpace(text, readSep string) (words []string) {
 
 //DefaultTokenizer uses the WhiteSpace() function with a comma ', ' read separator.
 //This is what many people have gotten used to seeing so I provide it here. However, this should not be used to anything but testing or display.
-func DefaultTokenizer(text, readSep string) []string {
-	return WhiteSpace(text, readSep)
+func DefaultTokenizer(text string) []string {
+	return WhiteSpace(text)
 }
 
 //UnicToken uses the UnicBucket unicode tokenizer. It can be very useful for really noisy data sets. See documention for for UnicBucket for more details. It returns a slice of tokenized words and a the bucket.
