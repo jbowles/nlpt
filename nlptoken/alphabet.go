@@ -23,14 +23,14 @@ type TokRange struct {
 
 type CodePoint struct {
 	order   []rune
-	utyp    unicodeType
+	utyp    UnicodeType
 	readtyp string
 }
 
-type unicodeType int
+type UnicodeType int
 
 const (
-	itemError unicodeType = iota
+	itemError UnicodeType = iota
 	itemEOF
 	itemWhiteSpace
 	itemAllUpperCase
