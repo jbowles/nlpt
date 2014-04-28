@@ -1,5 +1,6 @@
 /*
 * THIS PACKAGE IS DEPRECATED... THE FUNCTIONALITY ALREADY EXISTS IN Go Standard Library Unicode, SEE utoken.go FOR APPROPRIATE FUNCTIONALITY.
+*
 * Copyright ©2014 The nlpt Authors. All rights reserved.
 * Use of this source code is governed by a BSD-style
 * license that can be found in the LICENSE file.
