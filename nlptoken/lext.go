@@ -14,8 +14,8 @@ import (
 	"github.com/jbowles/go_lexer"
 )
 
-type lexDigest struct {
-	WordCount     int
+type LexerDigest struct {
+	TokenCount    int
 	PunctCount    int
 	SpaceCount    int
 	LineCount     int
@@ -45,10 +45,9 @@ var (
 	bytesSpace   = []byte{' ', '\t', '\f', '\v'}
 )
 
-func LexTokenize(text string) *lexDigest {
-	reader := bytes.NewBuffer([]byte(text))
-	ldigest := lexDigest{
-		WordCount:     0,
+func NewLexerDigest() *LexerDigest {
+	return &LexerDigest{
+		TokenCount:    0,
 		PunctCount:    0,
 		SpaceCount:    0,
 		LineCount:     0,
@@ -58,7 +57,10 @@ func LexTokenize(text string) *lexDigest {
 		Punct:         make([]string, 0, 0),
 		LastTokenType: T_NIL,
 	}
+}
 
+func (ldigest *LexerDigest) Tknz(text string) ([]string, *LexerDigest) {
+	reader := bytes.NewBuffer([]byte(text))
 	lex := lexer.NewSize(lexFunc, reader, 100, 1)
 
 	// Processing the lexer-emitted tokens
@@ -67,7 +69,7 @@ func LexTokenize(text string) *lexDigest {
 		switch t.Type() {
 		case T_WORD:
 			if ldigest.LastTokenType != T_WORD {
-				ldigest.WordCount++
+				ldigest.TokenCount++
 				ldigest.Tokens = append(ldigest.Tokens, string(t.Bytes()))
 			}
 			ldigest.EmptyLine = false
@@ -91,7 +93,7 @@ func LexTokenize(text string) *lexDigest {
 	if !ldigest.EmptyLine {
 		ldigest.LineCount++
 	}
-	return &ldigest
+	return ldigest.Tokens, ldigest
 }
 
 //lexFunc is a State-Function that matches ranges of bytes, emits those bytes, and returns its own StatFn.

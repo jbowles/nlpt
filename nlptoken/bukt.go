@@ -18,43 +18,45 @@ import (
 	"unicode"
 )
 
-type uToken struct {
+type BucketDigest struct {
 	Letter []string
+	Title  []string
 	Number []string
 	Punct  []string
 	Space  []string
 	Symbol []string
 }
 
-func (u *uToken) Initialize() *uToken {
-	u = &uToken{
-		Letter: []string{},
-		Number: []string{},
-		Punct:  []string{},
-		Space:  []string{},
-		Symbol: []string{},
+//NewBucketDigest initializes a new BucketDigest and explicitly allocates a length and cap on all stirng slices.
+func NewBucketDigest() *BucketDigest {
+	return &BucketDigest{
+		Letter: make([]string, 0, 0),
+		Title:  make([]string, 0, 0),
+		Number: make([]string, 0, 0),
+		Punct:  make([]string, 0, 0),
+		Space:  make([]string, 0, 0),
+		Symbol: make([]string, 0, 0),
 	}
-	return u
 }
 
 //UTokenize uses unicode package to match runes for tokenization. It can be very useful for really noisy data sets. See documention for for UnicBucket for more details. It returns a slice of tokenized words and a the bucket.
-func UTokenize(s string) (tokens []string, u uToken) {
-	u.Initialize()
-	for _, v := range s {
+func (bdigest *BucketDigest) Tknz(text string) ([]string, *BucketDigest) {
+	for _, v := range text {
 		switch true {
+		case unicode.IsTitle(v):
+			bdigest.Title = append(bdigest.Title, string(v))
 		case unicode.IsLetter(v):
-			u.Letter = append(u.Letter, string(v))
+			bdigest.Letter = append(bdigest.Letter, string(v))
 		case unicode.IsSpace(v):
-			u.Letter = append(u.Letter, ", ")
+			bdigest.Letter = append(bdigest.Letter, ", ")
 		case unicode.IsNumber(v):
-			u.Number = append(u.Number, string(v))
-			//u.Letter = append(u.Letter, string(v))
+			bdigest.Number = append(bdigest.Number, string(v))
 		case unicode.IsPunct(v):
-			u.Punct = append(u.Punct, string(v))
+			bdigest.Punct = append(bdigest.Punct, string(v))
 		case unicode.IsSymbol(v):
-			u.Symbol = append(u.Symbol, string(v))
+			bdigest.Symbol = append(bdigest.Symbol, string(v))
 		}
 	}
-	tokens = strings.Split(strings.Join(u.Letter, ""), ", ")
-	return tokens, u
+	tokens := strings.Split(strings.Join(bdigest.Letter, ""), ", ")
+	return tokens, bdigest
 }

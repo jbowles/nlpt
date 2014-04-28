@@ -4,23 +4,26 @@ import (
 	"testing"
 )
 
-func BenchmarkLexTokenizeGoodStr(b *testing.B) {
+func BenchmarkLexTknzGoodStr(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		LexTokenize(ThoreauTwo)
+		var ldigestone = NewLexerDigest()
+		ldigestone.Tknz(ThoreauTwo)
 	}
 }
 
-func BenchmarkLexTokenizeBadStr(b *testing.B) {
+func BenchmarkLexTknzBadStr(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		LexTokenize(BadStr)
+		var ldigesttwo = NewLexerDigest()
+		ldigesttwo.Tknz(BadStr)
 	}
 }
 
-func TestLexTokenizeGoodStr(t *testing.T) {
-	lxd := LexTokenize(ThoreauOne)
+func TestLextGoodStr(t *testing.T) {
+	var ldigest = NewLexerDigest()
+	_, lxd := ldigest.Tknz(ThoreauOne)
 
-	if lxd.WordCount != 44 {
-		t.Log("Expected word count to be 44, but got", lxd.WordCount)
+	if lxd.TokenCount != 44 {
+		t.Log("Expected word count to be 44, but got", lxd.TokenCount)
 		t.Fail()
 	}
 
@@ -49,8 +52,8 @@ func TestLexTokenizeGoodStr(t *testing.T) {
 		t.Fail()
 	}
 
-	if len(lxd.Tokens) != lxd.WordCount {
-		t.Log("Expected token and word count to be equal. Tokens=", len(lxd.Tokens), "Words=", lxd.WordCount)
+	if len(lxd.Tokens) != lxd.TokenCount {
+		t.Log("Expected token and word count to be equal. Tokens=", len(lxd.Tokens), "Words=", lxd.TokenCount)
 		t.Fail()
 	}
 
