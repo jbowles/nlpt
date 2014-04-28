@@ -29,6 +29,4 @@ Implementations I have borrowed from:
 // [Ruby Punkt in TREAT](https://github.com/louismullie/treat/blob/master/lib/treat/workers/processors/tokenizers/punkt.rb)
 */
 
-//////////////////////////////////////////////////
-//////  PUNKT (sentence boundary) MODEL //////////
-//////////////////////////////////////////////////
+//  PUNKT (sentence boundary) MODEL

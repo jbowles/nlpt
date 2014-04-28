@@ -4,7 +4,6 @@
 * license that can be found in the LICENSE file.
  */
 
-//nlptoken package implements various ways to tokenize natural language text.
 package nlptoken
 
 import "strings"

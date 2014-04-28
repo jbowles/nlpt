@@ -15,15 +15,15 @@ import (
 )
 
 type lexDigest struct {
-	wordCount     int
-	punctCount    int
-	spaceCount    int
-	lineCount     int
-	charCount     int
-	emptyLine     bool
-	tokens        []string
-	punct         []string
-	lastTokenType lexer.TokenType
+	WordCount     int
+	PunctCount    int
+	SpaceCount    int
+	LineCount     int
+	CharCount     int
+	EmptyLine     bool
+	Tokens        []string
+	Punct         []string
+	LastTokenType lexer.TokenType
 }
 
 //Lexer tokens starting from the pre-defined EOF token
@@ -40,60 +40,61 @@ const (
 
 // List gleaned from isspace(3) manpage
 var (
-	bytesNonWord = []byte{' ', '\t', '\f', '\v', '\n', '\r', '.', '?', '!', ':', '\\', '"'}
-	bytesPunct   = []byte{'.', '?', '!', ':', '\\', '"'}
+	bytesNonWord = []byte{' ', '\t', '\f', '\v', '\n', '\r', '.', '?', '!', ':', '\\', '"', ','}
+	bytesPunct   = []byte{'.', '?', '!', ':', '\\', '"', ','}
 	bytesSpace   = []byte{' ', '\t', '\f', '\v'}
 )
 
-func LexToken(text string) *lexDigest {
+func LexTokenize(text string) *lexDigest {
 	reader := bytes.NewBuffer([]byte(text))
 	ldigest := lexDigest{
-		wordCount:     0,
-		punctCount:    0,
-		spaceCount:    0,
-		lineCount:     0,
-		charCount:     0,
-		emptyLine:     true,
-		tokens:        make([]string, 0, 0),
-		punct:         make([]string, 0, 0),
-		lastTokenType: T_NIL,
+		WordCount:     0,
+		PunctCount:    0,
+		SpaceCount:    0,
+		LineCount:     0,
+		CharCount:     0,
+		EmptyLine:     true,
+		Tokens:        make([]string, 0, 0),
+		Punct:         make([]string, 0, 0),
+		LastTokenType: T_NIL,
 	}
 
 	lex := lexer.NewSize(lexFunc, reader, 100, 1)
 
 	// Processing the lexer-emitted tokens
 	for t := lex.NextToken(); lexer.TokenTypeEOF != t.Type(); t = lex.NextToken() {
-		ldigest.charCount += len(t.Bytes())
+		ldigest.CharCount += len(t.Bytes())
 		switch t.Type() {
 		case T_WORD:
-			if ldigest.lastTokenType != T_WORD {
-				ldigest.wordCount++
-				ldigest.tokens = append(ldigest.tokens, string(t.Bytes()))
+			if ldigest.LastTokenType != T_WORD {
+				ldigest.WordCount++
+				ldigest.Tokens = append(ldigest.Tokens, string(t.Bytes()))
 			}
-			ldigest.emptyLine = false
+			ldigest.EmptyLine = false
 		case T_PUNCT:
-			ldigest.punctCount++
-			ldigest.punct = append(ldigest.punct, string(t.Bytes()))
-			ldigest.emptyLine = false
+			ldigest.PunctCount++
+			ldigest.Punct = append(ldigest.Punct, string(t.Bytes()))
+			ldigest.EmptyLine = false
 		case T_NEWLINE:
-			ldigest.lineCount++
-			ldigest.spaceCount++
-			ldigest.emptyLine = true
+			ldigest.LineCount++
+			ldigest.SpaceCount++
+			ldigest.EmptyLine = true
 		case T_SPACE:
-			ldigest.spaceCount += len(t.Bytes())
-			ldigest.emptyLine = false
+			ldigest.SpaceCount += len(t.Bytes())
+			ldigest.EmptyLine = false
 		default:
 			panic("unreachable")
 		}
-		ldigest.lastTokenType = t.Type()
+		ldigest.LastTokenType = t.Type()
 	}
 	// If last line not empty, up line count
-	if !ldigest.emptyLine {
-		ldigest.lineCount++
+	if !ldigest.EmptyLine {
+		ldigest.LineCount++
 	}
 	return &ldigest
 }
 
+//lexFunc is a State-Function that matches ranges of bytes, emits those bytes, and returns its own StatFn.
 func lexFunc(l lexer.Lexer) lexer.StateFn {
 	// EOF
 	if l.MatchEOF() {

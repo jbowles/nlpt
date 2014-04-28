@@ -12,11 +12,6 @@
  */
 package nlptoken
 
-//////////////////////////////////////////////////
-/////  DEFINE ALPHABETS WITH A LITTLE ///////////
-/// MORE METADATA THAN USING unicdoe.CaseRange ///
-//////////////////////////////////////////////////
-
 type TokRange struct {
 	cp     []CodePoint
 	uniset []rune
@@ -79,7 +74,7 @@ var (
 /* UnicodeAlphabet builds a range of Unicode values with specific ordering range, unicode iota type, and a human readable readtyp
 *	  It is to be used in the context of tokenizing text via checking set membership of the token to the token range
 *	  Example:
-*		s := UniAlph(BasicLatin,Cyrillic,GeneralPunctuation)
+*		s := UnicodeAlph(BasicLatin,Cyrillic,GeneralPunctuation)
 *		fmt.Println(s.cp)
 *		for _,t := range s.uniset {
 *			  fmt.Prtinf("Character: %c, Rune: %v", t, t)
