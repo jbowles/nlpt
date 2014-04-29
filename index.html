@@ -33,7 +33,13 @@
 
 <p>Written in Go.</p>
 
-<p>If you wanna see where all the work is happening, go to <a href="https://github.com/jbowles/nlpt/tree/exp">exp branch</a>.</p>
+<p>Progress has been slow, but I am fully comitted to NLPT; even if there are silent spells. Some of my work on NLP and Go cannot be open-sourced for given periods of time, and now I have chance to be working in a more open-source friendly capacity!</p>
+
+<p>I am a linguist by trade and so NLP is always something I want to write code for. I now have the chance to work on Go professionally in a more open-source friendly capacity and this bodes well for this project. </p>
+
+<p><a href="https://github.com/jbowles/siw">siw</a> is the Simple Words project and is the place I've playing out some basic ideas in shorter form. If you don't see any progress on <code>nlpt</code>, you can be sure that <code>siw</code> has got something brewing.</p>
+
+<p><a href="https://github.com/jbowles/nlpt/tree/exp">exp branch</a> is the experimental branch; this will be the default branch until more progress is made on the core architecture (tokenzier, stemmer, and tagger).</p>
 
 <p>This is the tested, stable, and production ready brnach of a research project to write natural language processing tools in Go. NLPT is built up from multiple sub-packages (each separately accessible).</p>
 
@@ -97,19 +103,42 @@ Get a subpackage:</p>
 </ul><h2>
 <a name="general" class="anchor" href="#general"><span class="octicon octicon-link"></span></a>General</h2>
 
-<p>NLPT broadly supports minimal functionality for text in following language sets:</p>
+<p>NLPT broadly supports minimal functionality for the full range of 4 bit unicode code points.</p>
 
-<ul>
-<li>Text in Roman alphabet with diacritics (English, Spanish, French, German, etc...)</li>
-<li>Text in Cyrillic alphabet (Russian, Belarusian, Ukrainian, Rusyn, Serbian, Bulgarin, Macedonian, Chechen, and other Slavic langauges.</li>
-<li>Text with Greek alphabet</li>
-<li><strong>Support for Arabic and Mandarin are coming in late 2014</strong></li>
-</ul><h2>
+<h2>
 <a name="tokenizer" class="anchor" href="#tokenizer"><span class="octicon octicon-link"></span></a>Tokenizer</h2>
 
-<pre><code>Stability:  3   - Stable
-Volatility: 3   - Stable
-Tests:      3   - Stable
+<ul>
+<li>
+<p><strong>Done</strong>:</p>
+
+<ul>
+<li>Basic Whitespace tokenizer</li>
+<li>only whitespace, cannot parse punctuation</li>
+<li>Unicode tokenizer (good for noisy data sets)</li>
+<li>captures all unicode code points into a <code>Bucket</code>
+</li>
+<li>cannot return sequences of numbers (e.g., dates)</li>
+<li>will reconstruct 'nosiy" text (e.g., <code>th0s7!e</code> =&gt; <code>["thse"], [0, 7], ["!"]</code>)</li>
+</ul>
+</li>
+<li>
+<p><strong>In Progress</strong>:</p>
+
+<ul>
+<li>State Machine-like lexer (inspired by <a href="http://cuddle.googlecode.com/hg/talk/lex.html#landing-slide">Rob Pike: Lexical Scanning in Go</a>)</li>
+<li>Punkt algorithm (see python NLTK project)</li>
+</ul>
+</li>
+</ul><p>Run tests and benchmarks:</p>
+
+<div class="highlight highlight-sh"><pre>go <span class="nb">test</span> -v
+go <span class="nb">test</span> -benchmem -bench .
+</pre></div>
+
+<pre><code>Stability:  2   - Stable
+Volatility: 2   - Stable
+Tests:      2   - Stable
 </code></pre>
 
 <p>Examples:   <a href=""></a></p>
@@ -232,7 +261,7 @@ Tests:      0   - Not Started
 <li>"Finite State Technology Tools for Natural Language Processing"</li>
 </ul>
 <div class="highlight highlight-go"><pre><span class="cm">/*</span>
-<span class="cm"> ** DESCRIPTION FROM XEROX **</span>
+<span class="cm">   ** DESCRIPTION FROM XEROX **</span>
 <span class="cm">These tools, called xfst, twolc, and lexc, are used in many linguistic applications such as morphological analysis, tokenisation, and shallow parsing of a wide variety of natural languages. The finite state tools here are built on top of a software library that provides algorithms to create automata from regular expressions and equivalent formalisms and contains both classical operations, such as union and composition, and new algorithms such as replacement and local sequentialisation.</span>
 
 <span class="cm">Finite-state linguistic resources are used in a series of applications and prototypes that range from OCR to terminology extraction, comprehension assistants, digital libraries and authoring and translation systems.</span>
