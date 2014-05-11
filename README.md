@@ -1,6 +1,9 @@
 # Natural Language Processing Toolkit
 Written in Go.
 
+Gopher images use Creative Commons Attributions 3.0. All credit belongs to **Renee French**.
+See blog post http://blog.golang.org/gopher.
+
 Progress has been slow, but I am fully comitted to NLPT; even if there are silent spells. Some of my work on NLP and Go cannot be open-sourced for given periods of time, and now I have chance to be working in a more open-source friendly capacity!
 
 I am a linguist by trade and so NLP is always something I want to write code for. I now have the chance to work on Go professionally in a more open-source friendly capacity and this bodes well for this project. 

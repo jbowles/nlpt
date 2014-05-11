@@ -14,6 +14,7 @@ type WhiteSpaceDigest struct {
 	CharCount  int
 }
 
+//NewWhiteSpaceDigest intitializes a digest for white space tokenization.
 func NewWhiteSpaceDigest() *WhiteSpaceDigest {
 	return &WhiteSpaceDigest{
 		Tokens:     make([]string, 0, 0),
@@ -22,7 +23,7 @@ func NewWhiteSpaceDigest() *WhiteSpaceDigest {
 	}
 }
 
-//WhiteSpace uses strings package Split() with a read separator for more friendly humna reading of slices
+//Tknz implements the Tokenizer interface. This uses the strings package Split() with a white space separator as well as collecting some other metadata for the digest.
 func (wdigest *WhiteSpaceDigest) Tknz(text string) ([]string, *WhiteSpaceDigest) {
 	wdigest.Tokens = strings.Split(text, " ")
 	wdigest.SpaceCount = strings.Count(text, " ")

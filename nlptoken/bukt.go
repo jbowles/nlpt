@@ -3,9 +3,9 @@
 * Use of this source code is governed by a BSD-style
 * license that can be found in the LICENSE file.
 
-* A utoken language tokenizer uses unicode code point ranges to segment text.
+* A Bukt language tokenizer uses unicode code point ranges to segment text.
 * It filters through strings leveraging standard library functions to parse and
-* collect unicode segments into 'buckets' of letter, number, punctuation, spaces, and symbols.
+* collect unicode segments into a 'bucket digest' of letter, number, punctuation, space, and symbol.
 * Since this package uses runes the set is limited to characters of 4 bytes
 * or less (the limit of the Rune type).
 *
@@ -39,7 +39,10 @@ func NewBucketDigest() *BucketDigest {
 	}
 }
 
-//UTokenize uses unicode package to match runes for tokenization. It can be very useful for really noisy data sets. See documention for for UnicBucket for more details. It returns a slice of tokenized words and a the bucket.
+//Tknz implement Tokenizer interface. Here it uses Unicode package to match runes for tokenization. It can be useful for really noisy data sets. For example, a sequence like 'expect0.7rant7!' will be tokenized into 3 buckets of LETTER: 'expectrant', NUMBER: '0 7 7', and PUNCT: '. !'.
+//Caution should be used, however, as there is a great amount of information loss too. Date sequences, monetary sequences, urls, or any other complex combination of unicode sequences will be bucketized.
+//One use of this tokenizer is to clean up naoisy data or for post-processing of already tokenized data for specific data-mining tasks. This is not a typical tokenizer. If you want basic tokenization see the Whist (whitespace), Lext (lexical scanner), Punkt (sentence segmenter) tokenizers.
+
 func (bdigest *BucketDigest) Tknz(text string) ([]string, *BucketDigest) {
 	for _, v := range text {
 		switch true {

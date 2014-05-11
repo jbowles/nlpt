@@ -4,7 +4,7 @@
 * license that can be found in the LICENSE file.
 *
 * Following Lexical Scanning in Go, uses a 'State Function' to acheive tokenization.
-* For now, adapting go_lexer and the word_count example.
+* For now, adapting go_lexer and the word_count example from a fork of https://github.com/iNamik/go_lexer.
  */
 
 package nlptoken
