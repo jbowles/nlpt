@@ -1,5 +1,20 @@
 #nlptoken
 
+## Running Basic commands
+* Run basic benchmarks
+  * `go test -bench .`
+  * `go test -run=none -bench=BenchmarkLexTknzBadStr -cpuprofile=cprof` writes to cprof.
+
+* Run basic benchmarks with memory
+  * `go test -benchmem -bench .`
+
+
+
+## Running with pprof tools
+* Run basic benchmarks
+  * `go test -bench .`
+  * `go test -bench . -cpuprofile=cprof` writes to cprof
+
 ## Benchmarking and Profiling
 Without interface `Tokenizer` and tokenizer Digests:
 
