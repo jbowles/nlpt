@@ -5,7 +5,7 @@
 *
 * multinomial provieds the Multinomial Distribution
  */
-package nlpmath
+package nlp_math
 
 // Multinomial Counts
 type MultiCount struct {

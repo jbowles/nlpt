@@ -5,7 +5,7 @@
 *
 * minmax define functions for determining a Min and/or Max int32
  */
-package nlpmath
+package nlp_math
 
 const (
 	MaxInteger = int(^uint(0) >> 1) // max largest int 9223372036854775807

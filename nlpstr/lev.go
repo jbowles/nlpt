@@ -7,9 +7,7 @@
  */
 package nlpstr
 
-import (
-	"github.com/jbowles/nlpt/nlpmath"
-)
+import "github.com/jbowles/nlpt/nlp_math"
 
 // EX: fmt.Println(LevenshteinThree("stri","str"))
 func Levenshtein(s1, s2 string) int {
@@ -36,7 +34,7 @@ func Levenshtein(s1, s2 string) int {
 				deletion := vcell[(i1-1)*width+j2] + 1
 				insertion := vcell[(i1*width+(j2-1))] + 1
 				substitution := vcell[((i1-1)*width+(j2-1))] + 1
-				vcell[i1*width+j2] = nlpmath.MinInt(deletion, insertion, substitution)
+				vcell[i1*width+j2] = nlp_math.MinInt(deletion, insertion, substitution)
 			}
 		}
 	}

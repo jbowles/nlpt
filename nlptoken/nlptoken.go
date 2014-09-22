@@ -15,7 +15,8 @@ func Tokenize(typ, text string) (tokens []string, digest interface{}) {
 		bdigest := NewBucketDigest()
 		tokens, digest = bdigest.Tknz(text)
 	default:
-
+		wsdigest := NewWhiteSpaceDigest()
+		tokens, digest = wsdigest.Tknz(text)
 	}
 	return
 }

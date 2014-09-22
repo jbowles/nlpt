@@ -1,4 +1,4 @@
-package kmeans
+package nlp_xmeans
 
 import (
 	"bufio"
@@ -105,7 +105,7 @@ func TestValidReturnLoad(t *testing.T) {
 	if err != nil {
 		t.Errorf("Could not create test file %s err=%v", fname, err)
 	}
-	defer os.Remove(fname)
+	//defer os.Remove(fname)
 
 	if _, err := Load(fname, ","); err != nil {
 		t.Errorf("Load(%s) err=%v", fname, err)
