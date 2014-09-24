@@ -1,9 +1,9 @@
 /*
-* Copyright ©2013 The nlpt Authors. All rights reserved.
+* Copyright ©2014 The nlpt Authors. All rights reserved.
 * Use of this source code is governed by a BSD-style
 * license that can be found in the LICENSE file.
 *
-* multinomial provieds the Multinomial Distribution
+* multinomial provides the Multinomial Distribution
  */
 package nlp_math
 
