@@ -1,6 +1,22 @@
 # Natural Language Processing Toolkit
 Written in Go.
 
+## Tests
+
+```sh
+This should run all tests in current directory and all of its subdirectories:
+$ go test ./...
+
+This should run all tests with import path prefixed with foo/:
+$ go test foo/...
+
+This should run all tests import path prefixed with foo:
+$ go test foo...
+
+This should run all tests in your $GOPATH:
+$ go test ...
+```
+
 Gopher images use Creative Commons Attributions 3.0. All credit belongs to **Renee French**.
 See blog post http://blog.golang.org/gopher.
 
