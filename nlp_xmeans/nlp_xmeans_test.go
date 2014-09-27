@@ -1,10 +1,7 @@
 package nlp_xmeans
 
 import (
-	"bufio"
 	"fmt"
-	"math"
-	"os"
 	"testing"
 
 	"github.com/bobhancock/gomatrix/matrix"
@@ -60,6 +57,7 @@ func makeCentPointDist(datapoints, centroids *matrix.DenseMatrix) *matrix.DenseM
 	return CentPointDist
 }
 
+/*
 func TestFileNotExistsLoad(t *testing.T) {
 	f := "filedoesnotexist"
 	if _, err := Load(f, ","); err == nil {
@@ -105,7 +103,7 @@ func TestValidReturnLoad(t *testing.T) {
 	if err != nil {
 		t.Errorf("Could not create test file %s err=%v", fname, err)
 	}
-	//defer os.Remove(fname)
+	defer os.Remove(fname)
 
 	if _, err := Load(fname, ","); err != nil {
 		t.Errorf("Load(%s) err=%v", fname, err)
@@ -453,6 +451,7 @@ func TestCalcbic(t *testing.T) {
 		t.Errorf("TestCalcbic: Expected %f but received %f.  The difference %f exceeds epsilon %f", E, bic, diff, epsilon)
 	}
 }
+*/
 
 func TestXmeans(t *testing.T) {
 	var ed EuclidDist
@@ -469,6 +468,9 @@ func TestXmeans(t *testing.T) {
 	}
 
 	for i, m := range models {
+		fmt.Printf("Points[%d]:  %v\n", i, m.Clusters[i].Points)
+		fmt.Printf("Centroid[%d]:  %v\n", i, m.Clusters[i].Centroid)
+		fmt.Printf("Variance[%d]:  %v\n", i, m.Clusters[i].Variance)
 		if m.Bic == 0 {
 			t.Errorf("%d: model BIC is 0.", i)
 		}
@@ -483,4 +485,5 @@ func TestXmeans(t *testing.T) {
 				clustpts, cpts)
 		}
 	}
+	fmt.Printf("\n\nMODELS:  %v\n", models)
 }
