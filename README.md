@@ -1,6 +1,11 @@
 # Natural Language Processing Toolkit
 Written in Go.
 
+TODO: 
+* change the whole readme. use readme's for individual packages and the top level readme to point the way
+* move the defualt branch from `experimental` to `master`
+* start using topic branches per package... this will help ensure sub-package modularity, reduce inter-package dependencies, and force me to come up with root level package definition.
+
 ## Tests
 
 ```sh
