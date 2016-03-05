@@ -1,4 +1,6 @@
 # Natural Language Processing Toolkit
+ **NOTE** I'm moving all the functionality of this project out into smaller easier go-gettalbe projects. Anything with a `nltk-` prefix belongs. Leaving this here for historical reasons.
+
 Written in Go.
 
 TODO: 
